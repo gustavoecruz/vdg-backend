@@ -1,4 +1,4 @@
-package com.vdg.vdg.controller;
+package vdg.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vdg.vdg.model.Usuario;
-import com.vdg.vdg.repository.UsuarioRepository;
+import vdg.model.Usuario;
+import vdg.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping
@@ -21,7 +21,7 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepo;
-	
+		
 	@GetMapping
 	public List<Usuario> listar(){
 		return usuarioRepo.findAll();
@@ -35,7 +35,7 @@ public class UsuarioController {
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
 		Usuario u = new Usuario();
-		u.setId(id);
+		u.setId_usuario(id);
 		usuarioRepo.delete(u);
 	}
 

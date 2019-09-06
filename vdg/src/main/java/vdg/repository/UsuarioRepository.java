@@ -1,11 +1,11 @@
-package com.vdg.vdg.repository;
+package vdg.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.vdg.vdg.model.Usuario;
+import vdg.model.Usuario;
 
 public interface UsuarioRepository extends Repository<Usuario, Integer>{
 	
