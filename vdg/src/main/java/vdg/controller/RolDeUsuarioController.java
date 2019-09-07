@@ -11,37 +11,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vdg.model.RolDeUsuario;
 import vdg.model.Usuario;
+import vdg.repository.RolDeUsuarioRepository;
 import vdg.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping
-public class UsuarioController {
+public class RolDeUsuarioController {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepo;
+	private RolDeUsuarioRepository rolDeUsuarioRepo;
 		
 	@GetMapping
-	public List<Usuario> listar(){
-		return usuarioRepo.findAll();
+	public List<RolDeUsuario> listar(){
+		return rolDeUsuarioRepo.findAll();
 	}
 	
 	@PostMapping
-	public Usuario agregar(@RequestBody Usuario usuario){
-		return usuarioRepo.save(usuario);
+	public RolDeUsuario agregar(@RequestBody RolDeUsuario rolDeUsuario){
+		return rolDeUsuarioRepo.save(rolDeUsuario);
 	}
-	
-	@DeleteMapping("/{id}")
-	public void borrar(@PathVariable("id") int id) {
-		Usuario u = new Usuario();
-		u.setIdUsuario(id);
-		usuarioRepo.delete(u);
-	}
-	
-	public List<Usuario> findByEmail(String email) {
-		return usuarioRepo.findByEmail(email);
-	}
-
-
 
 }

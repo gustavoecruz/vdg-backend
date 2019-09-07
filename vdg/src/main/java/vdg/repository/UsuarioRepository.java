@@ -12,4 +12,6 @@ public interface UsuarioRepository extends Repository<Usuario, Integer>{
 	public List<Usuario> findAll();
 	public Usuario save(Usuario usuario);
 	public void delete(Usuario usuario);
+	public List<Usuario> findByEmail(String email);
+
 }

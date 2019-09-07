@@ -11,37 +11,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.Usuario;
-import vdg.repository.UsuarioRepository;
+import vdg.model.FotoIdentificacion;
+import vdg.repository.FotoIdentificacionRepository;
 
 @RestController
 @RequestMapping
-public class UsuarioController {
+public class FotoIdentificacionController {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepo;
+	private FotoIdentificacionRepository fotoIdentificacionRepo;
 		
 	@GetMapping
-	public List<Usuario> listar(){
-		return usuarioRepo.findAll();
+	public List<FotoIdentificacion> listar(){
+		return fotoIdentificacionRepo.findAll();
 	}
 	
 	@PostMapping
-	public Usuario agregar(@RequestBody Usuario usuario){
-		return usuarioRepo.save(usuario);
+	public FotoIdentificacion agregar(@RequestBody FotoIdentificacion fotoIdentificacion){
+		return fotoIdentificacionRepo.save(fotoIdentificacion);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
-		Usuario u = new Usuario();
-		u.setIdUsuario(id);
-		usuarioRepo.delete(u);
+		FotoIdentificacion f = new FotoIdentificacion();
+		f.setIdFoto(id);
+		fotoIdentificacionRepo.delete(f);
 	}
-	
-	public List<Usuario> findByEmail(String email) {
-		return usuarioRepo.findByEmail(email);
-	}
-
 
 
 }

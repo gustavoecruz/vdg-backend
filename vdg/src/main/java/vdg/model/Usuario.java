@@ -8,7 +8,7 @@ public class Usuario {
 	
 	@Id
 	@Column
-	private int id_usuario;
+	private int idUsuario;
 
 	@Column
 	private String email;
@@ -17,18 +17,19 @@ public class Usuario {
 	private String contrasena;
 
 	@Column
-	private int id_rol;
+	@Enumerated(value = EnumType.STRING)
+	private RolDeUsuario rolDeUsuario;
 	
 	public Usuario() {
 		
 	}
 
-	public int getId_usuario() {
-		return id_usuario;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId_usuario(int id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getEmail() {
@@ -47,14 +48,12 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public int getId_rol() {
-		return id_rol;
+	public RolDeUsuario getRolDeUsuario() {
+		return rolDeUsuario;
 	}
 
-	public void setId_rol(int id_rol) {
-		this.id_rol = id_rol;
+	public void setRolDeUsuario(RolDeUsuario rolDeUsuario) {
+		this.rolDeUsuario = rolDeUsuario;
 	}
-	
-	
 	
 }

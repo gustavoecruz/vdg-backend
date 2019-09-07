@@ -11,37 +11,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.Usuario;
-import vdg.repository.UsuarioRepository;
+import vdg.model.RestriccionPerimetral;
+import vdg.repository.RestriccionPerimetralRepository;
 
 @RestController
 @RequestMapping
-public class UsuarioController {
+public class RestriccionPerimetralController {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepo;
+	private RestriccionPerimetralRepository restriccionPerimetralRepo;
 		
 	@GetMapping
-	public List<Usuario> listar(){
-		return usuarioRepo.findAll();
+	public List<RestriccionPerimetral> listar(){
+		return restriccionPerimetralRepo.findAll();
 	}
 	
 	@PostMapping
-	public Usuario agregar(@RequestBody Usuario usuario){
-		return usuarioRepo.save(usuario);
+	public RestriccionPerimetral agregar(@RequestBody RestriccionPerimetral restriccionPerimetral){
+		return restriccionPerimetralRepo.save(restriccionPerimetral);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
-		Usuario u = new Usuario();
-		u.setIdUsuario(id);
-		usuarioRepo.delete(u);
+		RestriccionPerimetral r = new RestriccionPerimetral();
+		r.setIdRestriccion(id);
+		restriccionPerimetralRepo.delete(r);
 	}
-	
-	public List<Usuario> findByEmail(String email) {
-		return usuarioRepo.findByEmail(email);
-	}
-
 
 
 }

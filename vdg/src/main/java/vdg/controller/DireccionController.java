@@ -11,37 +11,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.Usuario;
-import vdg.repository.UsuarioRepository;
+import vdg.model.Direccion;
+import vdg.repository.DireccionRepository;
 
 @RestController
 @RequestMapping
-public class UsuarioController {
+public class DireccionController {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepo;
+	private DireccionRepository direccionRepo;
 		
 	@GetMapping
-	public List<Usuario> listar(){
-		return usuarioRepo.findAll();
+	public List<Direccion> listar(){
+		return direccionRepo.findAll();
 	}
 	
 	@PostMapping
-	public Usuario agregar(@RequestBody Usuario usuario){
-		return usuarioRepo.save(usuario);
+	public Direccion agregar(@RequestBody Direccion direccion){
+		return direccionRepo.save(direccion);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
-		Usuario u = new Usuario();
-		u.setIdUsuario(id);
-		usuarioRepo.delete(u);
+		Direccion d = new Direccion();
+		d.setIdDireccion(id);
+		direccionRepo.delete(d);
 	}
-	
-	public List<Usuario> findByEmail(String email) {
-		return usuarioRepo.findByEmail(email);
-	}
-
 
 
 }
