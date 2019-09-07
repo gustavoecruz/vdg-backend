@@ -12,31 +12,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vdg.model.Persona;
+import vdg.model.Usuario;
 import vdg.repository.PersonaRepository;
+import vdg.repository.UsuarioRepository;
 
 @RestController
-@RequestMapping
+@RequestMapping("/persona")
 public class PersonaController {
 	
 	@Autowired
 	private PersonaRepository personaRepo;
-		
+
+	@Autowired
+	private UsuarioRepository usuarioRepo;
+
 	@GetMapping
-	public List<Persona> listar(){
+	public List<Persona> listarPersonas(){
 		return personaRepo.findAll();
 	}
 	
 	@PostMapping
 	public Persona agregar(@RequestBody Persona persona){
+		
+		//CREO USUARIO NUEVO CON LOS DATOS DE LA PERSONA
+		Usuario usuario = new Usuario();
+		usuario.setEmail(persona.getEmail());
+		usuario.setContrasena(persona.getDni());
+		usuario.setIdRol(1);
+		usuarioRepo.save(usuario);
+		
+		//CONSULTO EL ID DEL USUARIO CREADO CON EL EMAIL Y SE LO PONGO A LA PERSONA
+		//persona.setIdUsuario(usuarioRepo.findByEmail(persona.getEmail()).get(0).getIdUsuario());
+		
+		//CREO LA PERSONA
 		return personaRepo.save(persona);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
-		Persona p = new Persona();
-		p.setIdUsuario(id);
-		personaRepo.delete(p);
+		Persona u = new Persona();
+		u.setIdPersona(id);
+		personaRepo.delete(u);
 	}
-
 
 }

@@ -20,7 +20,7 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepo;
-		
+
 	@GetMapping
 	public List<Usuario> listar(){
 		return usuarioRepo.findAll();
@@ -37,11 +37,6 @@ public class UsuarioController {
 		u.setIdUsuario(id);
 		usuarioRepo.delete(u);
 	}
-	
-	public List<Usuario> findByEmail(String email) {
-		return usuarioRepo.findByEmail(email);
-	}
-
 
 
 }

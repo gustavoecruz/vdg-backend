@@ -1,94 +1,40 @@
-CREATE DATABASE IF NOT EXISTS vdg;
+CREATE DATABASE vdg;
 
 USE vdg;
 
-DROP TABLE IF EXISTS Usuario;
-DROP TABLE IF EXISTS RolDeUsuario;
-DROP TABLE IF EXISTS Persona;
-DROP TABLE IF EXISTS Localidad;
-DROP TABLE IF EXISTS Direccion;
-DROP TABLE IF EXISTS FotoIdentificacion;
-DROP TABLE IF EXISTS RestriccionPerimetral;
+DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS rol;
+DROP TABLE IF EXISTS persona;
 
-
-
-
-CREATE TABLE RolDeUsuario (
-	idRol INT AUTO_INCREMENT,
+CREATE TABLE rol (
+	id_rol INT(1) AUTO_INCREMENT,
 	nombre VARCHAR(50),
-	PRIMARY KEY (idRol)
+	PRIMARY KEY (id_rol)
 );
 
-
-CREATE TABLE Usuario (
-	idUsuario INT AUTO_INCREMENT,
-	email VARCHAR(50) NOT NULL,
-   contraseña VARCHAR (50) NOT NULL,
-   idRol INT,
-   PRIMARY KEY (idUsuario),
-   FOREIGN KEY (idRol) REFERENCES RolDeUsuario(idRol)
+CREATE TABLE usuario (
+	id_usuario INT AUTO_INCREMENT,
+	email VARCHAR(50),
+    contrasena VARCHAR (50),
+    id_rol INT,
+    PRIMARY KEY (id_usuario),
+    FOREIGN KEY (id_rol) REFERENCES rol(id_rol)
 );
-
-
-CREATE TABLE Localidad (
-	idLocalidad INT AUTO_INCREMENT,
-	nombre VARCHAR (50),
-	codigoPostal VARCHAR (50),
-	PRIMARY KEY (idLocalidad)
-);
-
-
-CREATE TABLE Direccion (
-	idDireccion INT AUTO_INCREMENT,
-	calle VARCHAR (50),
-	altura VARCHAR (50),
-	piso VARCHAR (50),
-	departamento VARCHAR (50),
-	idLocalidad INT,
-	PRIMARY KEY (idDireccion),
-	FOREIGN KEY (idLocalidad) REFERENCES Localidad(idLocalidad)
-);
-
 
 CREATE TABLE persona (
-	idPersona INT AUTO_INCREMENT,
+	id_persona INT AUTO_INCREMENT,
 	nombre VARCHAR(50),
-   apellido VARCHAR (50),
-   DNI VARCHAR (20),
-   telefono VARCHAR (50),
-   fechaNacimiento DATE,
-   idDireccion INT,
-   idUsuario INT,
-   PRIMARY KEY (idPersona),
-   FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion)
+    apellido VARCHAR (50),
+    dni VARCHAR (20),
+    email VARCHAR (50),
+    telefono VARCHAR (50),
+    fecha_nacimiento VARCHAR (50),
+    id_direccion INT,
+    id_usuario INT,
+    PRIMARY KEY (id_persona)
 );
 
-
-CREATE TABLE FotoIdentificacion (
-	idFoto INT AUTO_INCREMENT,
-	foto BLOB,
-	idPersona INT,
-	PRIMARY KEY (idFoto),
-	FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
-);
-
-
-CREATE TABLE RestriccionPerimetral (
-	idRestriccion INT AUTO_INCREMENT,
-	idUsuarioAdministrativo INT,
-	idUsuarioDamnificada INT,
-	idUsuarioVictimario INT,
-	distancia INT,
-	PRIMARY KEY (idRestriccion),
-	FOREIGN KEY (idUsuarioAdministrativo) REFERENCES Persona(idPersona),
-	FOREIGN KEY (idUsuarioDamnificada) REFERENCES Persona(idPersona),
-	FOREIGN KEY (idUsuarioVictimario) REFERENCES Persona(idPersona)
-
-
-);
-
-
-INSERT INTO RolDeUsuario (nombre) VALUES ('ADMINISTRATIVO');
-INSERT INTO RolDeUsuario (nombre) VALUES ('SUPERVISOR');
-INSERT INTO RolDeUsuario (nombre) VALUES ('AGRESOR');
-INSERT INTO RolDeUsuario (nombre) VALUES ('VICTIMA');
+INSERT INTO rol (nombre) VALUES ('ADMINISTRATIVO');
+INSERT INTO rol (nombre) VALUES ('SUPERVISOR');
+INSERT INTO rol (nombre) VALUES ('AGRESOR');
+INSERT INTO rol (nombre) VALUES ('VICTIMA');

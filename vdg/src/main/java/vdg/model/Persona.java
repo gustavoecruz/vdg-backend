@@ -1,31 +1,32 @@
 package vdg.model;
 
-import java.sql.Date;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Persona")
+@Table(name="persona")
 public class Persona {
-	
+
 	@Id
 	@Column
 	private int idPersona;
-
+	
 	@Column
 	private String nombre;
-
+	
 	@Column
 	private String apellido;
+	
+	@Column
+	private String dni;
 
 	@Column
-	private int DNI;
-	
+	private String email;
+
 	@Column
 	private String telefono;
 	
 	@Column
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	
 	@Column
 	private int idDireccion;
@@ -61,12 +62,20 @@ public class Persona {
 		this.apellido = apellido;
 	}
 
-	public int getDNI() {
-		return DNI;
+	public String getDni() {
+		return dni;
 	}
 
-	public void setDNI(int dNI) {
-		DNI = dNI;
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getTelefono() {
@@ -77,11 +86,11 @@ public class Persona {
 		this.telefono = telefono;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -100,5 +109,6 @@ public class Persona {
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
 	
 }

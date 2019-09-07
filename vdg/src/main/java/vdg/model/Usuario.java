@@ -3,7 +3,7 @@ package vdg.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name="usuario")
 public class Usuario {
 	
 	@Id
@@ -17,8 +17,7 @@ public class Usuario {
 	private String contrasena;
 
 	@Column
-	@Enumerated(value = EnumType.STRING)
-	private RolDeUsuario rolDeUsuario;
+	private int idRol;
 	
 	public Usuario() {
 		
@@ -48,12 +47,13 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public RolDeUsuario getRolDeUsuario() {
-		return rolDeUsuario;
+	public int getIdRol() {
+		return idRol;
 	}
 
-	public void setRolDeUsuario(RolDeUsuario rolDeUsuario) {
-		this.rolDeUsuario = rolDeUsuario;
+	public void setIdRol(int idRol) {
+		this.idRol = idRol;
 	}
+	
 	
 }
