@@ -3,7 +3,8 @@ package vdg.repository;
 import java.util.List;
 
 import org.springframework.data.repository.Repository;
-import vdg.model.Localidad;
+
+import vdg.model.domain.Localidad;
 
 public interface LocalidadRepository extends Repository<Localidad, Integer>{
 	

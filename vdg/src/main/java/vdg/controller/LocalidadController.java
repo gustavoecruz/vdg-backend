@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.Localidad;
+import vdg.model.domain.Localidad;
 import vdg.repository.LocalidadRepository;
 
 @RestController

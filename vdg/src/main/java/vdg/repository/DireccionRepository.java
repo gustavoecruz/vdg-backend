@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.Repository;
 
-import vdg.model.Direccion;
+import vdg.model.domain.Direccion;
 
 public interface DireccionRepository extends Repository<Direccion, Integer>{
 	

@@ -3,7 +3,8 @@ package vdg.repository;
 import java.util.List;
 
 import org.springframework.data.repository.Repository;
-import vdg.model.RestriccionPerimetral;
+
+import vdg.model.domain.RestriccionPerimetral;
 
 public interface RestriccionPerimetralRepository extends Repository<RestriccionPerimetral, Integer>{
 	

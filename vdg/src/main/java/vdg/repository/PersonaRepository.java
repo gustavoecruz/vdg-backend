@@ -3,8 +3,9 @@ package vdg.repository;
 import java.util.List;
 
 import org.springframework.data.repository.Repository;
-import vdg.model.Persona;
-import vdg.model.Usuario;
+
+import vdg.model.domain.Persona;
+import vdg.model.domain.Usuario;
 
 public interface PersonaRepository extends Repository<Persona, Integer>{
 	

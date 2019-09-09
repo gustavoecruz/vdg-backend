@@ -3,7 +3,8 @@ package vdg.repository;
 import java.util.List;
 
 import org.springframework.data.repository.Repository;
-import vdg.model.FotoIdentificacion;
+
+import vdg.model.domain.FotoIdentificacion;
 
 public interface FotoIdentificacionRepository extends Repository<FotoIdentificacion, Integer>{
 	
