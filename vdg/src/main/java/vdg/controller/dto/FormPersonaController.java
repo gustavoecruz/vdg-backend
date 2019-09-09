@@ -58,9 +58,14 @@ public class FormPersonaController {
 
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
-		Persona p = new Persona();
-		p.setIdPersona(id);
+		Persona p = personaController.getById(id);
+		int idUsuario = p.getIdUsuario();
+		int idDireccion = p.getIdDireccion();
 		personaController.borrar(id);
+		usuarioController.borrar(idUsuario);
+		direccionController.borrar(idDireccion);
+		//Borrar Foto de perfil
+		
 	}
 
 }

@@ -33,6 +33,14 @@ public class PersonaController {
 		p.setIdPersona(id);
 		personaRepo.delete(p);
 	}
+	
+	public Persona getById(int id) {
+		List<Persona> personas = listar();
+		for(Persona persona : personas)
+			if(persona.getIdPersona() == id)
+				return persona;
+		return null;
+	}
 
 
 }
