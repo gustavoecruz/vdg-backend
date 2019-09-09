@@ -1,11 +1,11 @@
-package vdg.model;
+package vdg.model.domain;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Direccion")
 public class Direccion {
-	
+
 	@Id
 	@Column
 	private int idDireccion;
@@ -15,18 +15,18 @@ public class Direccion {
 
 	@Column
 	private String altura;
-	
+
 	@Column
 	private String piso;
-	
+
 	@Column
 	private String departamento;
 
 	@Column
 	private int idLocalidad;
-	
+
 	public Direccion() {
-		
+
 	}
 
 	public int getIdDireccion() {
@@ -76,6 +76,12 @@ public class Direccion {
 	public void setIdLocalidad(int idLocalidad) {
 		this.idLocalidad = idLocalidad;
 	}
-	
-	
+
+	public boolean equals(Direccion direccion) {
+
+		return this.altura.equals(direccion.altura) && this.calle.equals(direccion.calle)
+				&& this.departamento.equals(direccion.departamento) && this.idLocalidad == direccion.idLocalidad
+				&& this.piso.equals(direccion.piso);
+	}
+
 }

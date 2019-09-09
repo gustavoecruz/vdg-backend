@@ -1,4 +1,4 @@
-package vdg.model;
+package vdg.model.domain;
 
 import javax.persistence.*;
 
