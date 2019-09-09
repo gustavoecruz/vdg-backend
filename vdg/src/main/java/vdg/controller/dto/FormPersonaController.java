@@ -1,9 +1,6 @@
 package vdg.controller.dto;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +16,6 @@ import vdg.controller.UsuarioController;
 import vdg.model.domain.Direccion;
 import vdg.model.domain.Persona;
 import vdg.model.domain.Usuario;
-import vdg.repository.PersonaRepository;
-import vdg.model.dto.*;
 
 @RestController
 @RequestMapping("/FormABMPersona")
@@ -50,6 +45,7 @@ public class FormPersonaController {
 		usuarioController.agregar(usuario);
 		int idUsuarioCreado = usuarioController.findByEmail(usuario.getEmail()).getIdUsuario();
 		
+		//BUSCAR ID DE LOCALIDAD Y ASIGNARLO A LA DIRECCIÓN
 		direccionController.agregar(direccion);
 		int idDireccionCreada = direccionController.getId(direccion);
 		
