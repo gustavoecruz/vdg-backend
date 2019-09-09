@@ -37,6 +37,10 @@ public class RestriccionPerimetralController {
 		r.setIdRestriccion(id);
 		restriccionPerimetralRepo.delete(r);
 	}
-
+	
+	@GetMapping("/{id}")
+	public List<RestriccionPerimetral> getByAdministrativo(@PathVariable("id") int id){
+		return restriccionPerimetralRepo.findByAdministrativo(id);
+	}
 
 }
