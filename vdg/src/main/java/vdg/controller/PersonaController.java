@@ -3,6 +3,7 @@ package vdg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.Persona;
+import vdg.model.domain.Persona;
 import vdg.repository.PersonaRepository;
 
-@RestController
-@RequestMapping("/Persona")
+@Component
 public class PersonaController {
 	
 	@Autowired
@@ -27,7 +27,7 @@ public class PersonaController {
 	}
 	
 	@PostMapping
-	public Persona agregar(@RequestBody Persona persona){
+	public Persona agregar(Persona persona){
 		return personaRepo.save(persona);
 	}
 	

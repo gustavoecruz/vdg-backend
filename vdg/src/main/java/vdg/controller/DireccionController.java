@@ -3,6 +3,7 @@ package vdg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.Direccion;
+import vdg.model.domain.Direccion;
 import vdg.repository.DireccionRepository;
 
-@RestController
-@RequestMapping("/Direccion")
+@Component
 public class DireccionController {
 	
 	@Autowired
@@ -36,6 +36,16 @@ public class DireccionController {
 		Direccion d = new Direccion();
 		d.setIdDireccion(id);
 		direccionRepo.delete(d);
+	}
+	
+	public int getId(Direccion direccion) {
+		List<Direccion> direcciones = listar();
+		for(Direccion dir : direcciones) {
+			if(dir.equals(direccion))
+				return dir.getIdDireccion();
+		}
+		
+		return -1;
 	}
 
 
