@@ -11,5 +11,4 @@ public interface RestriccionPerimetralRepository extends Repository<RestriccionP
 	public List<RestriccionPerimetral> findAll();
 	public RestriccionPerimetral save(RestriccionPerimetral restriccionPerimetral);
 	public void delete(RestriccionPerimetral restriccionPerimetral);
-	public List<RestriccionPerimetral> findByAdministrativo(int idUsuarioAdministrativo);
 }

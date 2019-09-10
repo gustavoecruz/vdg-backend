@@ -1,8 +1,10 @@
 package vdg.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import vdg.repository.RestriccionPerimetralRepository;
 
 @RestController
 @RequestMapping("/RestriccionPerimetral")
+@CrossOrigin
 public class RestriccionPerimetralController {
 	
 	@Autowired
@@ -40,7 +43,13 @@ public class RestriccionPerimetralController {
 	
 	@GetMapping("/{id}")
 	public List<RestriccionPerimetral> getByAdministrativo(@PathVariable("id") int id){
-		return restriccionPerimetralRepo.findByAdministrativo(id);
+		List<RestriccionPerimetral> todas = listar();
+		List<RestriccionPerimetral> retorno = new ArrayList<RestriccionPerimetral>();
+		for(RestriccionPerimetral restriccion : todas)
+			if(restriccion.getIdRestriccion()==id)
+				retorno.add(restriccion);
+		
+		return retorno;
 	}
 
 }
