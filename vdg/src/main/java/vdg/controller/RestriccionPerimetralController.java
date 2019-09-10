@@ -34,22 +34,16 @@ public class RestriccionPerimetralController {
 		return restriccionPerimetralRepo.save(restriccionPerimetral);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/borrar/{id}")
 	public void borrar(@PathVariable("id") int id) {
 		RestriccionPerimetral r = new RestriccionPerimetral();
 		r.setIdRestriccion(id);
 		restriccionPerimetralRepo.delete(r);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/getByAdministrativo/{id}")
 	public List<RestriccionPerimetral> getByAdministrativo(@PathVariable("id") int id){
-		List<RestriccionPerimetral> todas = listar();
-		List<RestriccionPerimetral> retorno = new ArrayList<RestriccionPerimetral>();
-		for(RestriccionPerimetral restriccion : todas)
-			if(restriccion.getIdRestriccion()==id)
-				retorno.add(restriccion);
-		
-		return retorno;
+		return restriccionPerimetralRepo.findByIdUsuarioAdministrativo(id);
 	}
 
 }

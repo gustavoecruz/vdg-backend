@@ -11,4 +11,5 @@ public interface PersonaRepository extends Repository<Persona, Integer>{
 	public List<Persona> findAll();
 	public Persona save(Persona persona);
 	public void delete(Persona persona);
+	public Persona findById(int idPersona);
 }

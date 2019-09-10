@@ -35,11 +35,12 @@ public class PersonaController {
 	}
 	
 	public Persona getById(int id) {
-		List<Persona> personas = listar();
+		/*List<Persona> personas = listar();
 		for(Persona persona : personas)
 			if(persona.getIdPersona() == id)
 				return persona;
-		return null;
+		return null;*/
+		return personaRepo.findById(id);
 	}
 
 

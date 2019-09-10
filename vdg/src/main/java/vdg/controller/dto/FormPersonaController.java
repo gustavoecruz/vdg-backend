@@ -46,6 +46,7 @@ public class FormPersonaController {
 		int idUsuarioCreado = usuarioController.findByEmail(usuario.getEmail()).getIdUsuario();
 		
 		//BUSCAR ID DE LOCALIDAD Y ASIGNARLO A LA DIRECCIÓN
+		//AGREGAR FOTO DE PERFIL
 		direccionController.agregar(direccion);
 		int idDireccionCreada = direccionController.getId(direccion);
 		
