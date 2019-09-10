@@ -2,6 +2,7 @@ package vdg.controller.dto;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import vdg.model.domain.Usuario;
 
 @RestController
 @RequestMapping("/FormABMPersona")
+@CrossOrigin
 public class FormPersonaController {
 	@Autowired
 	PersonaController personaController = new PersonaController();

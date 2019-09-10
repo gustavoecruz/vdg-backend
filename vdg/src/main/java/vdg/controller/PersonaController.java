@@ -3,15 +3,20 @@ package vdg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Persona;
 import vdg.repository.PersonaRepository;
 
-@Component
+
+@RestController
+@RequestMapping("/Persona")
+@CrossOrigin
 public class PersonaController {
 	
 	@Autowired
@@ -34,12 +39,8 @@ public class PersonaController {
 		personaRepo.delete(p);
 	}
 	
-	public Persona getById(int id) {
-		/*List<Persona> personas = listar();
-		for(Persona persona : personas)
-			if(persona.getIdPersona() == id)
-				return persona;
-		return null;*/
+	@GetMapping("/GetById/{id}")
+	public Persona getById(@PathVariable("id") int id) {
 		return personaRepo.findById(id);
 	}
 

@@ -1,6 +1,5 @@
 package vdg.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,29 +19,29 @@ import vdg.repository.RestriccionPerimetralRepository;
 @RequestMapping("/RestriccionPerimetral")
 @CrossOrigin
 public class RestriccionPerimetralController {
-	
+
 	@Autowired
 	private RestriccionPerimetralRepository restriccionPerimetralRepo;
-		
+
 	@GetMapping
-	public List<RestriccionPerimetral> listar(){
+	public List<RestriccionPerimetral> listar() {
 		return restriccionPerimetralRepo.findAll();
 	}
-	
+
 	@PostMapping
-	public RestriccionPerimetral agregar(@RequestBody RestriccionPerimetral restriccionPerimetral){
+	public RestriccionPerimetral agregar(@RequestBody RestriccionPerimetral restriccionPerimetral) {
 		return restriccionPerimetralRepo.save(restriccionPerimetral);
 	}
-	
+
 	@DeleteMapping("/borrar/{id}")
 	public void borrar(@PathVariable("id") int id) {
 		RestriccionPerimetral r = new RestriccionPerimetral();
 		r.setIdRestriccion(id);
 		restriccionPerimetralRepo.delete(r);
 	}
-	
+
 	@GetMapping("/getByAdministrativo/{id}")
-	public List<RestriccionPerimetral> getByAdministrativo(@PathVariable("id") int id){
+	public List<RestriccionPerimetral> getByAdministrativo(@PathVariable("id") int id) {
 		return restriccionPerimetralRepo.findByIdUsuarioAdministrativo(id);
 	}
 
