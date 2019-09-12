@@ -23,7 +23,7 @@ CREATE TABLE RolDeUsuario (
 CREATE TABLE Usuario (
 	idUsuario INT AUTO_INCREMENT,
 	email VARCHAR(50) NOT NULL,
-   contrasena VARCHAR (50) NOT NULL,
+   contrasena VARCHAR (64) NOT NULL,
    rolDeUsuario VARCHAR(20),
    PRIMARY KEY (idUsuario)
   
