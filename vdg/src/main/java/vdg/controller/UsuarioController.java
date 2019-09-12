@@ -1,6 +1,7 @@
 package vdg.controller;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +41,20 @@ public class UsuarioController {
 
 	@GetMapping("/GetByEmail/{email}")
 	public Usuario findByEmail(@PathVariable("email") String email) {
-		return usuarioRepo.findByEmail(email).get(0);
+		List<Usuario> usuarios = usuarioRepo.findByEmail(email);
+		return usuarios.isEmpty() ? null : usuarios.get(0);
+	}
+	
+	@PostMapping("/login")
+	public boolean login(@RequestBody Map<String, String> info) {
+		
+		Usuario user = findByEmail(info.get("email"));
+		if(user == null)
+			return false;
+		if(user.getContrasena().equals(info.get("contrasena")))
+			return true;
+		return false;
+		
 	}
 
 }
