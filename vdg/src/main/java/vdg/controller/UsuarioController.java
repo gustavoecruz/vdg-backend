@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Usuario;
+import vdg.model.logica.Encriptar;
 import vdg.repository.UsuarioRepository;
 
 @RestController
@@ -29,6 +30,7 @@ public class UsuarioController {
 
 	@PostMapping
 	public Usuario agregar(@RequestBody Usuario usuario) {
+		usuario.setContrasena(Encriptar.sha256(usuario.getContrasena()));
 		return usuarioRepo.save(usuario);
 	}
 
