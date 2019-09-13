@@ -21,8 +21,14 @@ public class ValidadoresFormPersona {
 		
 	}
 	
-	public static boolean validarBorrarPersona() {
-		return true;
+	public static ErrorDTO validarBorrarPersona(Persona persona) {
+		ErrorDTO ret = new ErrorDTO();
+		
+		if(!ValidadoresPersona.validarBajaPersona(persona)) {
+			ret.addMensajeError("No se puede borrar la persona seleccionada. Esta asignada a una restricción perimetral.");
+			ret.setHayError();
+		}
+		return ret;
 	}
 
 }

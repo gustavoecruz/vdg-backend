@@ -45,4 +45,12 @@ public class RestriccionPerimetralController {
 		return restriccionPerimetralRepo.findByIdUsuarioAdministrativo(id);
 	}
 
+	public RestriccionPerimetral getByPersona(int idPersona) {
+		RestriccionPerimetral ret = restriccionPerimetralRepo.findByIdUsuarioVictimario(idPersona);
+		if(ret != null)
+			return ret;
+		ret = restriccionPerimetralRepo.findByIdUsuarioDamnificada(idPersona);
+		return ret;
+	}
+
 }

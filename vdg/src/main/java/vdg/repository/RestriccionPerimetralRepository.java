@@ -12,4 +12,6 @@ public interface RestriccionPerimetralRepository extends Repository<RestriccionP
 	public RestriccionPerimetral save(RestriccionPerimetral restriccionPerimetral);
 	public void delete(RestriccionPerimetral restriccionPerimetral);
 	public List<RestriccionPerimetral> findByIdUsuarioAdministrativo(int idUsuarioAdministrativo);
+	public RestriccionPerimetral findByIdUsuarioVictimario(int idPersona);
+	public RestriccionPerimetral findByIdUsuarioDamnificada(int idPersona);
 }

@@ -74,11 +74,16 @@ public class FormPersonaController {
 		Persona p = personaController.getById(id);
 		int idUsuario = p.getIdUsuario();
 		int idDireccion = p.getIdDireccion();
+		ErrorDTO ret = ValidadoresFormPersona.validarBorrarPersona(p);
+		if(ret.getHayError()) {
+			//return ret;
+		}
+		
 		personaController.borrar(id);
 		usuarioController.borrar(idUsuario);
 		direccionController.borrar(idDireccion);
 		// Borrar Foto de perfil
-
+		//return ret;
 	}
 
 }
