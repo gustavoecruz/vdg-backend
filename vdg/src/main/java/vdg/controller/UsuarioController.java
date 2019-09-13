@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Usuario;
+import vdg.model.dto.ErrorDTO;
 import vdg.model.logica.Encriptar;
+import vdg.model.validadores.ValidadoresUsuario;
 import vdg.repository.UsuarioRepository;
 
 @RestController
@@ -30,7 +32,16 @@ public class UsuarioController {
 
 	@PostMapping
 	public Usuario agregar(@RequestBody Usuario usuario) {
+		ErrorDTO error = new ErrorDTO();
+		if (!ValidadoresUsuario.validarAltaUsuario(usuario)) {
+			error.setHayError();
+			error.addMensajeError("Ya existe un usuario creado con ese MAIL");
+			//return error;
+		}
+
 		usuario.setContrasena(Encriptar.sha256(usuario.getContrasena()));
+		//ENVIAR CONTRASEÑA POR MAIL
+		//return error;
 		return usuarioRepo.save(usuario);
 	}
 
@@ -46,17 +57,17 @@ public class UsuarioController {
 		List<Usuario> usuarios = usuarioRepo.findByEmail(email);
 		return usuarios.isEmpty() ? null : usuarios.get(0);
 	}
-	
+
 	@PostMapping("/login")
 	public boolean login(@RequestBody Map<String, String> info) {
-		
+
 		Usuario user = findByEmail(info.get("email"));
-		if(user == null)
+		if (user == null)
 			return false;
-		if(user.getContrasena().equals(info.get("contrasena")))
+		if (user.getContrasena().equals(info.get("contrasena")))
 			return true;
 		return false;
-		
+
 	}
 
 }
