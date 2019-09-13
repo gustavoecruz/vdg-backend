@@ -17,6 +17,8 @@ import vdg.controller.UsuarioController;
 import vdg.model.domain.Direccion;
 import vdg.model.domain.Persona;
 import vdg.model.domain.Usuario;
+import vdg.model.dto.ErrorDTO;
+import vdg.model.validadores.ValidadoresFormPersona;
 
 @RestController
 @RequestMapping("/FormABMPersona")
@@ -24,10 +26,8 @@ import vdg.model.domain.Usuario;
 public class FormPersonaController {
 	@Autowired
 	PersonaController personaController = new PersonaController();
-
 	@Autowired
 	UsuarioController usuarioController = new UsuarioController();
-	
 	@Autowired
 	DireccionController direccionController = new DireccionController();
 
@@ -38,24 +38,34 @@ public class FormPersonaController {
 
 	@PostMapping
 	public Persona agregar(@RequestBody vdg.model.dto.FormPersonaDTO personaDTO) {
-
+		
 		Persona persona = personaDTO.getPersona();
 		Usuario usuario = personaDTO.getUsuario();
 		Direccion direccion = personaDTO.getDireccion();
+
+		//Valido el usuario y la persona. La dirección se valida en el front
+		ErrorDTO error = ValidadoresFormPersona.validarAgregarPersona(persona, usuario);
+		if(error.getHayError()) {
+			//DEVOLVER MENSAJE DE ERROR
+			//return error;
+		}
+		//Si los datos son válidos, paso a crear el usuario, direccion y persona, luego FOTO.
 		
 		usuario.setContrasena(persona.getDNI());
+		//usuario.setContrasena(GeneradorContraseña.generarContraseña());
 		usuarioController.agregar(usuario);
 		int idUsuarioCreado = usuarioController.findByEmail(usuario.getEmail()).getIdUsuario();
-		
-		//BUSCAR ID DE LOCALIDAD Y ASIGNARLO A LA DIRECCIÓN
-		//AGREGAR FOTO DE PERFIL
+
+		// BUSCAR ID DE LOCALIDAD Y ASIGNARLO A LA DIRECCIÓN
 		direccionController.agregar(direccion);
 		int idDireccionCreada = direccionController.getId(direccion);
-		
+
 		persona.setIdUsuario(idUsuarioCreado);
 		persona.setIdDireccion(idDireccionCreada);
-		
 		personaController.agregar(persona);
+		
+		// AGREGAR FOTO DE PERFIL
+		
 		return personaDTO.getPersona();
 	}
 
@@ -67,8 +77,8 @@ public class FormPersonaController {
 		personaController.borrar(id);
 		usuarioController.borrar(idUsuario);
 		direccionController.borrar(idDireccion);
-		//Borrar Foto de perfil
-		
+		// Borrar Foto de perfil
+
 	}
 
 }

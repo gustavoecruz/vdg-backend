@@ -44,5 +44,8 @@ public class PersonaController {
 		return personaRepo.findById(id);
 	}
 
+	public Persona getByDni(String dni) {
+		return personaRepo.findBydni(dni);
+	}
 
 }

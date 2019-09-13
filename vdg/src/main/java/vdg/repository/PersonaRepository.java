@@ -12,4 +12,5 @@ public interface PersonaRepository extends Repository<Persona, Integer>{
 	public Persona save(Persona persona);
 	public void delete(Persona persona);
 	public Persona findById(int idPersona);
+	public Persona findBydni(String dni);
 }
