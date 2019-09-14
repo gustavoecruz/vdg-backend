@@ -44,7 +44,8 @@ public class PersonaController {
 		return personas.isEmpty() ? null : personas.get(0);
 	}
 
-	public Persona getByDni(String dni) {
+	@GetMapping("/GetByDni/{dni}")
+	public Persona getByDni(@PathVariable("dni") String dni) {
 		List<Persona> personas = personaRepo.findByDni(dni);
 		return personas.isEmpty() ? null : personas.get(0);
 	}
