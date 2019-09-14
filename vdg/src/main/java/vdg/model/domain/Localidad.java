@@ -13,9 +13,6 @@ public class Localidad {
 	@Column
 	private String nombre;
 
-	@Column
-	private String codigoPostal;
-
 	public Localidad() {
 		
 	}
@@ -36,12 +33,4 @@ public class Localidad {
 		this.nombre = nombre;
 	}
 
-	public String getCodigoPostal() {
-		return codigoPostal;
-	}
-
-	public void setCodigoPostal(String codigoPostal) {
-		this.codigoPostal = codigoPostal;
-	}
-	
 }
