@@ -25,11 +25,13 @@ import vdg.model.validadores.ValidadoresFormPersona;
 @CrossOrigin
 public class FormPersonaController {
 	@Autowired
-	PersonaController personaController = new PersonaController();
+	PersonaController personaController;
 	@Autowired
-	UsuarioController usuarioController = new UsuarioController();
+	UsuarioController usuarioController;
 	@Autowired
-	DireccionController direccionController = new DireccionController();
+	DireccionController direccionController;
+	@Autowired
+	ValidadoresFormPersona validador = new ValidadoresFormPersona();
 
 	@GetMapping
 	public List<Persona> listar() {
@@ -44,7 +46,7 @@ public class FormPersonaController {
 		Direccion direccion = personaDTO.getDireccion();
 
 		//Valido el usuario y la persona. La dirección se valida en el front
-		ErrorDTO error = ValidadoresFormPersona.validarAgregarPersona(persona, usuario);
+		ErrorDTO error = validador.validarAgregarPersona(persona, usuario);
 		if(error.getHayError()) {
 			//DEVOLVER MENSAJE DE ERROR
 			//return error;
@@ -74,7 +76,7 @@ public class FormPersonaController {
 		Persona p = personaController.getById(id);
 		int idUsuario = p.getIdUsuario();
 		int idDireccion = p.getIdDireccion();
-		ErrorDTO ret = ValidadoresFormPersona.validarBorrarPersona(p);
+		ErrorDTO ret = validador.validarBorrarPersona(p);
 		if(ret.getHayError()) {
 			//return ret;
 		}

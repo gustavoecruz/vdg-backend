@@ -1,30 +1,33 @@
 package vdg.model.validadores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import vdg.controller.PersonaController;
 import vdg.controller.RestriccionPerimetralController;
 import vdg.model.domain.Persona;
 
+@Component
 public class ValidadoresPersona {
 
 	@Autowired
-	private static PersonaController personaController = new PersonaController();
+	private PersonaController personaController;
 	@Autowired
-	private static RestriccionPerimetralController restriccionController = new RestriccionPerimetralController();
+	private RestriccionPerimetralController restriccionController;
 
-	public static boolean validarAltaPersona(Persona persona) {
+	public boolean validarAltaPersona(Persona persona) {
 		return existePersona(persona);
 	}
 
-	public static boolean validarBajaPersona(Persona persona) {
+	public boolean validarBajaPersona(Persona persona) {
 		return participaEnRestriccion(persona);
 	}
 
-	private static boolean participaEnRestriccion(Persona persona) {
+	private boolean participaEnRestriccion(Persona persona) {
 		return restriccionController.getByPersona(persona.getIdPersona()) != null;
 	}
 
-	private static boolean existePersona(Persona persona) {
+	private boolean existePersona(Persona persona) {
 		return personaController.getByDni(persona.getDNI()) != null;
 	}
 

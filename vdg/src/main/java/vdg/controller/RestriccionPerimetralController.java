@@ -45,7 +45,8 @@ public class RestriccionPerimetralController {
 		return restriccionPerimetralRepo.findByIdUsuarioAdministrativo(id);
 	}
 
-	public RestriccionPerimetral getByPersona(int idPersona) {
+	@GetMapping("/getByPersona/{id}")
+	public RestriccionPerimetral getByPersona(@PathVariable("id") int idPersona) {
 		RestriccionPerimetral ret = restriccionPerimetralRepo.findByIdUsuarioVictimario(idPersona);
 		if(ret != null)
 			return ret;

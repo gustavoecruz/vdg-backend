@@ -1,31 +1,33 @@
 package vdg.model.validadores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import vdg.controller.RestriccionPerimetralController;
 import vdg.controller.UsuarioController;
 import vdg.model.domain.Usuario;
 
+@Component
 public class ValidadoresUsuario {
 
 	@Autowired
-	private static UsuarioController usuarioController = new UsuarioController();
+	private UsuarioController usuarioController;
 	@Autowired
-	private static RestriccionPerimetralController restriccionController = new RestriccionPerimetralController();
+	private RestriccionPerimetralController restriccionController;
 	
-	public static boolean validarAltaUsuario(Usuario usuario) {
+	public boolean validarAltaUsuario(Usuario usuario) {
 		return existeUsuario(usuario);
 	}
 
-	public static boolean validarBajaUsuario(Usuario usuario) {
+	public boolean validarBajaUsuario(Usuario usuario) {
 		return tieneAsignadaRestriccion(usuario);
 	}
 
-	private static boolean existeUsuario(Usuario usuario) {
+	private boolean existeUsuario(Usuario usuario) {
 		return usuarioController.findByEmail(usuario.getEmail()) != null;
 	}
 	
-	private static boolean tieneAsignadaRestriccion(Usuario usuario) {
+	private boolean tieneAsignadaRestriccion(Usuario usuario) {
 		return !restriccionController.getByAdministrativo(usuario.getIdUsuario()).isEmpty();
 	}
 }

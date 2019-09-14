@@ -19,7 +19,7 @@ public class Persona {
 	private String apellido;
 
 	@Column
-	private String DNI;
+	private String dni;
 
 	@Column
 	private String telefono;
@@ -62,11 +62,11 @@ public class Persona {
 	}
 
 	public String getDNI() {
-		return DNI;
+		return dni;
 	}
 
 	public void setDNI(String dNI) {
-		DNI = dNI;
+		dni = dNI;
 	}
 
 	public String getTelefono() {

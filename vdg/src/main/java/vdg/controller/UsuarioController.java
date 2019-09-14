@@ -24,6 +24,8 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepo;
+	@Autowired
+	private ValidadoresUsuario validador = new ValidadoresUsuario();
 
 	@GetMapping
 	public List<Usuario> listar() {
@@ -33,7 +35,7 @@ public class UsuarioController {
 	@PostMapping
 	public Usuario agregar(@RequestBody Usuario usuario) {
 		ErrorDTO error = new ErrorDTO();
-		if (!ValidadoresUsuario.validarAltaUsuario(usuario)) {
+		if (!validador.validarAltaUsuario(usuario)) {
 			error.setHayError();
 			error.addMensajeError("Ya existe un usuario creado con ese MAIL");
 			//return error;

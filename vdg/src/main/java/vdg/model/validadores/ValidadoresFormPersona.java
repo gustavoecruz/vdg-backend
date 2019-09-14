@@ -1,19 +1,27 @@
 package vdg.model.validadores;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import vdg.model.domain.Persona;
 import vdg.model.domain.Usuario;
 import vdg.model.dto.ErrorDTO;
 
+@Component
 public class ValidadoresFormPersona {
+	@Autowired
+	ValidadoresPersona validadorPersona;
+	@Autowired
+	ValidadoresUsuario validadorUsuario = new ValidadoresUsuario();
 	
-	public static ErrorDTO validarAgregarPersona(Persona persona, Usuario usuario) {
+	public ErrorDTO validarAgregarPersona(Persona persona, Usuario usuario) {
 		ErrorDTO ret = new ErrorDTO();
 		
-		if(!ValidadoresPersona.validarAltaPersona(persona)) {
+		if(!validadorPersona.validarAltaPersona(persona)) {
 			ret.addMensajeError("Ya existe una persona con ese DNI.");
 			ret.setHayError();
 		}
-		if(!ValidadoresUsuario.validarAltaUsuario(usuario)) {
+		if(!validadorUsuario.validarAltaUsuario(usuario)) {
 			ret.addMensajeError("Ya existe un usuario con ese MAIL.");
 			ret.setHayError();
 		}
@@ -21,10 +29,10 @@ public class ValidadoresFormPersona {
 		
 	}
 	
-	public static ErrorDTO validarBorrarPersona(Persona persona) {
+	public ErrorDTO validarBorrarPersona(Persona persona) {
 		ErrorDTO ret = new ErrorDTO();
 		
-		if(!ValidadoresPersona.validarBajaPersona(persona)) {
+		if(!validadorPersona.validarBajaPersona(persona)) {
 			ret.addMensajeError("No se puede borrar la persona seleccionada. Esta asignada a una restricción perimetral.");
 			ret.setHayError();
 		}

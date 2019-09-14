@@ -13,39 +13,40 @@ import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Persona;
 import vdg.repository.PersonaRepository;
 
-
 @RestController
 @RequestMapping("/Persona")
 @CrossOrigin
 public class PersonaController {
-	
+
 	@Autowired
 	private PersonaRepository personaRepo;
-		
+
 	@GetMapping
-	public List<Persona> listar(){
+	public List<Persona> listar() {
 		return personaRepo.findAll();
 	}
-	
+
 	@PostMapping
-	public Persona agregar(Persona persona){
+	public Persona agregar(Persona persona) {
 		return personaRepo.save(persona);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void borrar(@PathVariable("id") int id) {
 		Persona p = new Persona();
 		p.setIdPersona(id);
 		personaRepo.delete(p);
 	}
-	
+
 	@GetMapping("/GetById/{id}")
 	public Persona getById(@PathVariable("id") int id) {
-		return personaRepo.findById(id);
+		List<Persona> personas = personaRepo.findById(id);
+		return personas.isEmpty() ? null : personas.get(0);
 	}
 
 	public Persona getByDni(String dni) {
-		return personaRepo.findBydni(dni);
+		List<Persona> personas = personaRepo.findByDni(dni);
+		return personas.isEmpty() ? null : personas.get(0);
 	}
 
 }
