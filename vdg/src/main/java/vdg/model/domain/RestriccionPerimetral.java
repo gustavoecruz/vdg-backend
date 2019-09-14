@@ -1,5 +1,7 @@
 package vdg.model.domain;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,16 +13,19 @@ public class RestriccionPerimetral {
 	private int idRestriccion;
 
 	@Column
-	private int idUsuarioAdministrativo;
+	private int idUsuario;
 
 	@Column
-	private int idUsuarioDamnificada;
+	private int idDamnificada;
 	
 	@Column
-	private int idUsuarioVictimario;
+	private int idVictimario;
 	
 	@Column
 	private int distancia;
+	
+	@Column
+	private Date fechaSentencia;
 
 	public RestriccionPerimetral() {
 		
@@ -34,28 +39,28 @@ public class RestriccionPerimetral {
 		this.idRestriccion = idRestriccion;
 	}
 
-	public int getIdUsuarioAdministrativo() {
-		return idUsuarioAdministrativo;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setIdUsuarioAdministrativo(int idUsuarioAdministrativo) {
-		this.idUsuarioAdministrativo = idUsuarioAdministrativo;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
-	public int getIdUsuarioDamnificada() {
-		return idUsuarioDamnificada;
+	public int getIdDamnificada() {
+		return idDamnificada;
 	}
 
-	public void setIdUsuarioDamnificada(int idUsuarioDamnificada) {
-		this.idUsuarioDamnificada = idUsuarioDamnificada;
+	public void setIdDamnificada(int idDamnificada) {
+		this.idDamnificada = idDamnificada;
 	}
 
-	public int getIdUsuarioVictimario() {
-		return idUsuarioVictimario;
+	public int getIdVictimario() {
+		return idVictimario;
 	}
 
-	public void setIdUsuarioVictimario(int idUsuarioVictimario) {
-		this.idUsuarioVictimario = idUsuarioVictimario;
+	public void setIdVictimario(int idVictimario) {
+		this.idVictimario = idVictimario;
 	}
 
 	public int getDistancia() {
@@ -65,5 +70,15 @@ public class RestriccionPerimetral {
 	public void setDistancia(int distancia) {
 		this.distancia = distancia;
 	}
+
+	public Date getFechaSentencia() {
+		return fechaSentencia;
+	}
+
+	public void setFechaSentencia(Date fechaSentencia) {
+		this.fechaSentencia = fechaSentencia;
+	}
+	
+	
 	
 }

@@ -22,18 +22,16 @@ CREATE TABLE RolDeUsuario (
 
 CREATE TABLE Usuario (
 	idUsuario INT AUTO_INCREMENT,
-	email VARCHAR(50) NOT NULL,
+    email VARCHAR(64) NOT NULL,
    contrasena VARCHAR (64) NOT NULL,
-   rolDeUsuario VARCHAR(20),
+   rolDeUsuario VARCHAR(25),
    PRIMARY KEY (idUsuario)
-  
 );
 
 
 CREATE TABLE Localidad (
 	idLocalidad INT AUTO_INCREMENT,
-	nombre VARCHAR (50),
-	codigoPostal VARCHAR (50),
+	nombre VARCHAR (64),
 	PRIMARY KEY (idLocalidad)
 );
 
@@ -75,24 +73,23 @@ CREATE TABLE FotoIdentificacion (
 
 CREATE TABLE RestriccionPerimetral (
 	idRestriccion INT AUTO_INCREMENT,
-	idUsuarioAdministrativo INT,
-	idUsuarioDamnificada INT,
-	idUsuarioVictimario INT,
+	idUsuario INT,
+	idDamnificada INT,
+	idVictimario INT,
 	distancia INT,
+    fechaSentencia DATE,
 	PRIMARY KEY (idRestriccion),
-	FOREIGN KEY (idUsuarioAdministrativo) REFERENCES Persona(idPersona),
-	FOREIGN KEY (idUsuarioDamnificada) REFERENCES Persona(idPersona),
-	FOREIGN KEY (idUsuarioVictimario) REFERENCES Persona(idPersona)
-
-
+	FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+	FOREIGN KEY (idDamnificada) REFERENCES Persona(idPersona),
+	FOREIGN KEY (idVictimario) REFERENCES Persona(idPersona)
 );
 
 
 INSERT INTO RolDeUsuario (nombre) VALUES ('ADMINISTRATIVO');
 INSERT INTO RolDeUsuario (nombre) VALUES ('SUPERVISOR');
 INSERT INTO RolDeUsuario (nombre) VALUES ('AGRESOR');
-INSERT INTO RolDeUsuario (nombre) VALUES ('VICTIMA');
+INSERT INTO RolDeUsuario (nombre) VALUES ('DAMNIFICADA');
 
-INSERT INTO Localidad (nombre, codigoPostal) VALUES ('Hurlingham', '1686');
+INSERT INTO Localidad (nombre) VALUES ('Hurlingham');
 INSERT INTO Direccion (calle, altura, idLocalidad) VALUES ('Albariños', '1767', 1);
-INSERT INTO Usuario (email, contrasena, rolDeUsuario) VALUES ("usuario@probando.com", "nomeacuerdo123", "SUPERVISOR");
+INSERT INTO Usuario (email, contrasena, rolDeUsuario) VALUES ("admin@admin.com", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", "SUPERVISOR");
