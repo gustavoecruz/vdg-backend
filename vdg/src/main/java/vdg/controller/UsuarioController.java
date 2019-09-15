@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Usuario;
 import vdg.model.dto.ErrorDTO;
+import vdg.model.email.EmailGateway;
 import vdg.model.logica.Encriptar;
 import vdg.model.validadores.ValidadoresUsuario;
 import vdg.repository.UsuarioRepository;
@@ -40,9 +41,11 @@ public class UsuarioController {
 			error.addMensajeError("Ya existe un usuario creado con ese MAIL");
 			//return error;
 		}
-
+		//String mensaje = "Se ha dado de alta un nuevo usuario para el sistema.\nSu nueva contraseña es: "+usuario.getContrasena();
 		usuario.setContrasena(Encriptar.sha256(usuario.getContrasena()));
 		//ENVIAR CONTRASEÑA POR MAIL
+
+		//EmailGateway.enviarMail(usuario.getEmail(), mensaje, "Nueva Contraseña generada");
 		//return error;
 		return usuarioRepo.save(usuario);
 	}
