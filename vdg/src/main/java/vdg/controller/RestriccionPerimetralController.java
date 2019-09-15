@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import vdg.model.domain.RestriccionPerimetral;
+import vdg.model.dto.ErrorDTO;
+import vdg.model.validadores.ValidadoresRestriccion;
 import vdg.repository.RestriccionPerimetralRepository;
 
 @RestController
@@ -22,7 +23,9 @@ public class RestriccionPerimetralController {
 
 	@Autowired
 	private RestriccionPerimetralRepository restriccionPerimetralRepo;
-
+	@Autowired
+	ValidadoresRestriccion validador = new ValidadoresRestriccion();
+	
 	@GetMapping
 	public List<RestriccionPerimetral> listar() {
 		return restriccionPerimetralRepo.findAll();
@@ -30,6 +33,11 @@ public class RestriccionPerimetralController {
 
 	@PostMapping
 	public RestriccionPerimetral agregar(@RequestBody RestriccionPerimetral restriccionPerimetral) {
+		ErrorDTO error = validador.validarAltaRestriccion(restriccionPerimetral);
+		if(error.getHayError()) {
+			//DEVOLVER MENSAJE DE ERROR
+			//return error;
+		}
 		return restriccionPerimetralRepo.save(restriccionPerimetral);
 	}
 
