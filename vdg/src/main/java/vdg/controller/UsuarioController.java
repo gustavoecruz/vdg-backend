@@ -72,4 +72,9 @@ public class UsuarioController {
 
 	}
 
+	public Usuario findByIdUsuario(int idUsuario) {
+		List<Usuario> usuarios = usuarioRepo.findByIdUsuario(idUsuario);
+		return usuarios.isEmpty() ? null : usuarios.get(0);
+	}
+
 }

@@ -42,16 +42,25 @@ public class RestriccionPerimetralController {
 
 	@GetMapping("/getByAdministrativo/{id}")
 	public List<RestriccionPerimetral> getByAdministrativo(@PathVariable("id") int id) {
-		return restriccionPerimetralRepo.findByIdUsuarioAdministrativo(id);
+		return restriccionPerimetralRepo.findByIdUsuario(id);
 	}
 
-	@GetMapping("/getByPersona/{id}")
-	public RestriccionPerimetral getByPersona(@PathVariable("id") int idPersona) {
-		RestriccionPerimetral ret = restriccionPerimetralRepo.findByIdUsuarioVictimario(idPersona);
+	@GetMapping("/getByDamnificada/{id}")
+	public List<RestriccionPerimetral> getByDamnificada(@PathVariable("id") int idPersona) {
+		return restriccionPerimetralRepo.findByIdDamnificada(idPersona);
+	}
+
+	@GetMapping("/getByVictimario/{id}")
+	public List<RestriccionPerimetral> getByVictimario(@PathVariable("id") int idPersona) {
+		return restriccionPerimetralRepo.findByIdVictimario(idPersona);
+	}
+
+	public List<RestriccionPerimetral> getByPersona(int idPersona) {
+		List<RestriccionPerimetral> ret = restriccionPerimetralRepo.findByIdVictimario(idPersona);
 		if(ret != null)
 			return ret;
-		ret = restriccionPerimetralRepo.findByIdUsuarioDamnificada(idPersona);
+		ret = restriccionPerimetralRepo.findByIdDamnificada(idPersona);
 		return ret;
 	}
-
+	
 }
