@@ -29,7 +29,6 @@ public class PersonaController {
 
 	@PostMapping
 	public Persona agregar(@RequestBody Persona persona) {
-		System.out.println(persona.getIdDireccion()+" ES EL ID DIREC\n"+persona.getIdUsuario()+" ES ID DE USER");
 		return personaRepo.save(persona);
 	}
 
