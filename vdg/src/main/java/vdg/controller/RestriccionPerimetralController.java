@@ -32,13 +32,13 @@ public class RestriccionPerimetralController {
 	}
 
 	@PostMapping
-	public RestriccionPerimetral agregar(@RequestBody RestriccionPerimetral restriccionPerimetral) {
+	public ErrorDTO agregar(@RequestBody RestriccionPerimetral restriccionPerimetral) {
 		ErrorDTO error = validador.validarAltaRestriccion(restriccionPerimetral);
 		if(error.getHayError()) {
-			//DEVOLVER MENSAJE DE ERROR
-			//return error;
+			return error;
 		}
-		return restriccionPerimetralRepo.save(restriccionPerimetral);
+		restriccionPerimetralRepo.save(restriccionPerimetral);
+		return error;
 	}
 
 	@DeleteMapping("/borrar/{id}")

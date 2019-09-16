@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.Usuario;
 import vdg.model.dto.ErrorDTO;
 import vdg.model.email.EmailGateway;
@@ -34,20 +36,21 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public Usuario agregar(@RequestBody Usuario usuario) {
+	public ErrorDTO agregar(@RequestBody Usuario usuario) {
 		ErrorDTO error = new ErrorDTO();
 		if (!validador.validarAltaUsuario(usuario)) {
 			error.setHayError();
 			error.addMensajeError("Ya existe un usuario creado con ese MAIL");
-			//return error;
+			return error;
 		}
 		//String mensaje = "Se ha dado de alta un nuevo usuario para el sistema.\nSu nueva contraseña es: "+usuario.getContrasena();
 		usuario.setContrasena(Encriptar.sha256(usuario.getContrasena()));
 		//ENVIAR CONTRASEÑA POR MAIL
 
 		//EmailGateway.enviarMail(usuario.getEmail(), mensaje, "Nueva Contraseña generada");
-		//return error;
-		return usuarioRepo.save(usuario);
+		usuarioRepo.save(usuario);
+		return error;
+		
 	}
 
 	@DeleteMapping("/{id}")
@@ -60,6 +63,7 @@ public class UsuarioController {
 	@GetMapping("/GetByEmail/{email}")
 	public Usuario findByEmail(@PathVariable("email") String email) {
 		List<Usuario> usuarios = usuarioRepo.findByEmail(email);
+		System.out.println("ENCONTE EL USUARIO : "+usuarios.get(0).getEmail());
 		return usuarios.isEmpty() ? null : usuarios.get(0);
 	}
 
@@ -68,6 +72,9 @@ public class UsuarioController {
 
 		Usuario user = findByEmail(info.get("email"));
 		if (user == null)
+			return false;
+		if(!(user.getRolDeUsuario().equals(RolDeUsuario.ADMINISTRATIVO) || 
+				user.getRolDeUsuario().equals(RolDeUsuario.SUPERVISOR)))
 			return false;
 		if (user.getContrasena().equals(info.get("contrasena")))
 			return true;

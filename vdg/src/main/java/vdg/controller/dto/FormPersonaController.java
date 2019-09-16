@@ -39,7 +39,7 @@ public class FormPersonaController {
 	}
 
 	@PostMapping
-	public Persona agregar(@RequestBody vdg.model.dto.FormPersonaDTO personaDTO) {
+	public ErrorDTO agregar(@RequestBody vdg.model.dto.FormPersonaDTO personaDTO) {
 		
 		Persona persona = personaDTO.getPersona();
 		Usuario usuario = personaDTO.getUsuario();
@@ -48,8 +48,7 @@ public class FormPersonaController {
 		//Valido el usuario y la persona. La dirección se valida en el front
 		ErrorDTO error = validador.validarAgregarPersona(persona, usuario);
 		if(error.getHayError()) {
-			//DEVOLVER MENSAJE DE ERROR
-			//return error;
+			return error;
 		}
 		//Si los datos son válidos, paso a crear el usuario, direccion y persona, luego FOTO.
 		
@@ -68,24 +67,24 @@ public class FormPersonaController {
 		
 		// AGREGAR FOTO DE PERFIL
 		
-		return personaDTO.getPersona();
+		return error;
 	}
 
 	@DeleteMapping("/{id}")
-	public void borrar(@PathVariable("id") int id) {
+	public ErrorDTO borrar(@PathVariable("id") int id) {
 		Persona p = personaController.getById(id);
 		int idUsuario = p.getIdUsuario();
 		int idDireccion = p.getIdDireccion();
 		ErrorDTO ret = validador.validarBorrarPersona(p);
 		if(ret.getHayError()) {
-			//return ret;
+			return ret;
 		}
 		
 		personaController.borrar(id);
 		usuarioController.borrar(idUsuario);
 		direccionController.borrar(idDireccion);
 		// Borrar Foto de perfil
-		//return ret;
+		return ret;
 	}
 
 }
