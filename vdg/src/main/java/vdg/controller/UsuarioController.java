@@ -54,16 +54,22 @@ public class UsuarioController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void borrar(@PathVariable("id") int id) {
+	public ErrorDTO borrar(@PathVariable("id") int id) {
 		Usuario u = new Usuario();
 		u.setIdUsuario(id);
+		ErrorDTO error = new ErrorDTO();
+		if (!validador.validarBajaUsuario(u)) {
+			error.setHayError();
+			error.addMensajeError("El Usuario tiene restricción perimetral asignada");
+			return error;
+		}
 		usuarioRepo.delete(u);
+		return error;
 	}
 
 	@GetMapping("/GetByEmail/{email}")
 	public Usuario findByEmail(@PathVariable("email") String email) {
 		List<Usuario> usuarios = usuarioRepo.findByEmail(email);
-		System.out.println("ENCONTE EL USUARIO : "+usuarios.get(0).getEmail());
 		return usuarios.isEmpty() ? null : usuarios.get(0);
 	}
 

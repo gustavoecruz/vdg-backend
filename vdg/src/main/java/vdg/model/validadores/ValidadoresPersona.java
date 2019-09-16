@@ -16,11 +16,11 @@ public class ValidadoresPersona {
 	private RestriccionPerimetralController restriccionController;
 
 	public boolean validarAltaPersona(Persona persona) {
-		return existePersona(persona);
+		return !existePersona(persona);
 	}
 
 	public boolean validarBajaPersona(Persona persona) {
-		return participaEnRestriccion(persona);
+		return !participaEnRestriccion(persona);
 	}
 
 	private boolean participaEnRestriccion(Persona persona) {

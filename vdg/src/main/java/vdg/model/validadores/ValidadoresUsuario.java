@@ -16,7 +16,7 @@ public class ValidadoresUsuario {
 	private RestriccionPerimetralController restriccionController;
 	
 	public boolean validarAltaUsuario(Usuario usuario) {
-		return existeUsuario(usuario);
+		return !existeUsuario(usuario);
 	}
 
 	public boolean validarBajaUsuario(Usuario usuario) {
