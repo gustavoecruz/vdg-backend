@@ -35,8 +35,7 @@ public class ValidadoresRestriccion {
 			ret.setHayError();
 			ret.addMensajeError("La persona seleccionada como Victimario no es una persona del tipo Victimario.");
 		}
-		if (!usuario.getRolDeUsuario().equals(RolDeUsuario.ADMINISTRATIVO)
-				|| !usuario.getRolDeUsuario().equals(RolDeUsuario.SUPERVISOR)) {
+		if (!usuario.getRolDeUsuario().equals(RolDeUsuario.ADMINISTRATIVO)) {
 			ret.setHayError();
 			ret.addMensajeError("El administrativo seleccionado no es unu usuario del tipo Administrativo.");
 		}
