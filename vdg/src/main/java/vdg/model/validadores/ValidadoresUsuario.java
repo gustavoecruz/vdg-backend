@@ -20,7 +20,7 @@ public class ValidadoresUsuario {
 	}
 
 	public boolean validarBajaUsuario(Usuario usuario) {
-		return tieneAsignadaRestriccion(usuario);
+		return !tieneAsignadaRestriccion(usuario);
 	}
 
 	private boolean existeUsuario(Usuario usuario) {
