@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS FotoIdentificacion;
 DROP TABLE IF EXISTS RestriccionPerimetral;
 DROP TABLE IF EXISTS Persona;
 DROP TABLE IF EXISTS Direccion;
-DROP TABLE IF EXISTS Localidad;
 DROP TABLE IF EXISTS Usuario;
 DROP TABLE IF EXISTS RolDeUsuario;
 
@@ -27,14 +26,6 @@ CREATE TABLE Usuario (
    rolDeUsuario VARCHAR(25),
    PRIMARY KEY (idUsuario)
 );
-
-
-CREATE TABLE Localidad (
-	idLocalidad INT AUTO_INCREMENT,
-	nombre VARCHAR (64),
-	PRIMARY KEY (idLocalidad)
-);
-
 
 CREATE TABLE Direccion (
 	idDireccion INT AUTO_INCREMENT,
@@ -58,7 +49,8 @@ CREATE TABLE Persona (
    idDireccion INT,
    idUsuario INT,
    PRIMARY KEY (idPersona),
-   FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion)
+   FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion),
+   FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 
 
@@ -90,6 +82,5 @@ INSERT INTO RolDeUsuario (nombre) VALUES ('SUPERVISOR');
 INSERT INTO RolDeUsuario (nombre) VALUES ('AGRESOR');
 INSERT INTO RolDeUsuario (nombre) VALUES ('DAMNIFICADA');
 
-INSERT INTO Localidad (nombre) VALUES ('Hurlingham');
-INSERT INTO Direccion (calle, altura, idLocalidad) VALUES ('Albariños', '1767', 1);
+INSERT INTO Direccion (calle, altura, idLocalidad) VALUES ('Argerich', '1767', 2156);
 INSERT INTO Usuario (email, contrasena, rolDeUsuario) VALUES ("admin@admin.com", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", "SUPERVISOR");
