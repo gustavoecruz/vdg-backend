@@ -52,7 +52,6 @@ public class FormPersonaController {
 		}
 		//Si los datos son válidos, paso a crear el usuario, direccion y persona, luego FOTO.
 		
-		usuario.setContrasena(persona.getDNI());
 		usuarioController.agregar(usuario);
 		int idUsuarioCreado = usuarioController.findByEmail(usuario.getEmail()).getIdUsuario();
 
