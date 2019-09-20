@@ -32,7 +32,7 @@ public class UsuarioController {
 
 	@GetMapping
 	public List<Usuario> listar() {
-		return usuarioRepo.findAll();
+		return usuarioRepo.findEmpleados();
 	}
 
 	@PostMapping

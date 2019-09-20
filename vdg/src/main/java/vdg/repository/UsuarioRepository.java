@@ -2,6 +2,7 @@ package vdg.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import vdg.model.domain.Usuario;
 
@@ -12,5 +13,8 @@ public interface UsuarioRepository extends Repository<Usuario, Integer>{
 	public void delete(Usuario usuario);
 	public List<Usuario> findByEmail(String email);
 	public List<Usuario> findByIdUsuario(int idUsuario);
+	@Query(value = "SELECT * FROM Usuario u WHERE u.rolDeUsuario='ADMINISTRATIVO' OR u.rolDeUsuario='SUPERVISOR'", nativeQuery = true)
+	public List<Usuario> findEmpleados();
+	
 
 }
