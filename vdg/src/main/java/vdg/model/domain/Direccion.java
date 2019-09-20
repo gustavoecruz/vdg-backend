@@ -80,8 +80,9 @@ public class Direccion {
 	public boolean equals(Direccion direccion) {
 
 		return this.altura.equals(direccion.altura) && this.calle.equals(direccion.calle)
-				&& this.departamento.equals(direccion.departamento) && this.idLocalidad == direccion.idLocalidad
-				&& this.piso.equals(direccion.piso);
+				&& (this.departamento == null ? true : this.departamento.equals(direccion.departamento))
+				&& this.idLocalidad == direccion.idLocalidad
+				&& (this.piso == null ? true : this.piso.equals(direccion.piso));
 	}
 
 }
