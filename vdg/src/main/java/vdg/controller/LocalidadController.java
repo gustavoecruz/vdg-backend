@@ -27,7 +27,12 @@ public class LocalidadController {
 	public List<Localidad> listar(){
 		return localidadRepo.findAll();
 	}
-	
+
+	@GetMapping("/{id}")
+	public List<Localidad> listarLocalidadesPorProvincia(@PathVariable("id") int idProvincia){
+		return localidadRepo.findByIdProvincia(idProvincia);
+	}
+
 	@PostMapping
 	public Localidad agregar(@RequestBody Localidad localidad){
 		return localidadRepo.save(localidad);

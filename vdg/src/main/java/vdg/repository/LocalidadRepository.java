@@ -11,4 +11,5 @@ public interface LocalidadRepository extends Repository<Localidad, Integer>{
 	public List<Localidad> findAll();
 	public Localidad save(Localidad localidad);
 	public void delete(Localidad localidad);
+	public List<Localidad> findByIdProvincia(int idProvincia);
 }
