@@ -24,7 +24,7 @@ public class ValidadoresPersona {
 	}
 
 	private boolean participaEnRestriccion(Persona persona) {
-		return restriccionController.getByPersona(persona.getIdPersona()) != null;
+		return !restriccionController.getByPersona(persona.getIdPersona()).isEmpty();
 	}
 
 	private boolean existePersona(Persona persona) {
