@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vdg.controller.DireccionController;
+import vdg.controller.FotoIdentificacionController;
 import vdg.controller.PersonaController;
 import vdg.controller.UsuarioController;
 import vdg.model.domain.Direccion;
 import vdg.model.domain.Persona;
+import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.Usuario;
 import vdg.model.dto.ErrorDTO;
 import vdg.model.validadores.ValidadoresFormPersona;
@@ -30,6 +32,8 @@ public class FormPersonaController {
 	UsuarioController usuarioController;
 	@Autowired
 	DireccionController direccionController;
+	@Autowired
+	FotoIdentificacionController fotoController;
 	@Autowired
 	ValidadoresFormPersona validador = new ValidadoresFormPersona();
 
@@ -63,7 +67,11 @@ public class FormPersonaController {
 		persona.setIdDireccion(idDireccionCreada);
 		personaController.agregar(persona);
 		
+		int idPersonaCreada = personaController.getByDni(persona.getDNI()).getIdPersona();
 		// AGREGAR FOTO DE PERFIL
+		if(usuario.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO)) {
+			fotoController.agregar(personaDTO.getFoto(), idPersonaCreada);
+		}
 		
 		return error;
 	}
