@@ -56,7 +56,7 @@ CREATE TABLE Persona (
 
 CREATE TABLE FotoIdentificacion (
 	idFoto INT AUTO_INCREMENT,
-	foto BLOB,
+	foto MEDIUMBLOB,
 	idPersona INT,
 	PRIMARY KEY (idFoto),
 	FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)

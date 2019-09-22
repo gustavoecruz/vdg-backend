@@ -9,6 +9,7 @@ public class FormPersonaDTO {
 	private Persona persona;
 	private Usuario usuario;
 	private Direccion direccion;
+	private String foto;
 	
 	public Persona getPersona() {
 		return this.persona;
@@ -20,5 +21,9 @@ public class FormPersonaDTO {
 
 	public Direccion getDireccion() {
 		return this.direccion;
+	}
+	
+	public String getFoto() {
+		return this.foto;
 	}
 }
