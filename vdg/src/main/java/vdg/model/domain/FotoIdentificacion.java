@@ -1,7 +1,5 @@
 package vdg.model.domain;
 
-import java.sql.Blob;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +11,8 @@ public class FotoIdentificacion {
 	private int idFoto;
 
 	@Column
-	private Blob foto;
+	@Lob
+	private byte[] foto;
 
 	@Column
 	private int idPersona;
@@ -30,11 +29,11 @@ public class FotoIdentificacion {
 		this.idFoto = idFoto;
 	}
 
-	public Blob getFoto() {
+	public byte[] getFoto() {
 		return foto;
 	}
 
-	public void setFoto(Blob foto) {
+	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
 
