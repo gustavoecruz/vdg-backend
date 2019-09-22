@@ -85,11 +85,13 @@ public class FormPersonaController {
 		if(ret.getHayError()) {
 			return ret;
 		}
-		
+		Usuario user = usuarioController.findByIdUsuario(idUsuario);
 		personaController.borrar(id);
 		usuarioController.borrar(idUsuario);
 		direccionController.borrar(idDireccion);
-		// Borrar Foto de perfil
+		if(user.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO)) {
+			fotoController.eliminar(id);
+		}
 		return ret;
 	}
 

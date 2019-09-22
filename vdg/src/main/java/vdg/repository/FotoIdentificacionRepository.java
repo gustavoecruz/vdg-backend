@@ -2,6 +2,8 @@ package vdg.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.repository.Repository;
 
 import vdg.model.domain.FotoIdentificacion;
@@ -11,4 +13,6 @@ public interface FotoIdentificacionRepository extends Repository<FotoIdentificac
 	public List<FotoIdentificacion> findAll();
 	public FotoIdentificacion save(FotoIdentificacion fotoIdentificacion);
 	public void delete(FotoIdentificacion fotoIdentificacion);
+	@Transactional
+	public void deleteByIdPersona(int idPersona);
 }
