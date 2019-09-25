@@ -10,4 +10,5 @@ public class VdgApplication {
 		SpringApplication.run(VdgApplication.class, args);
 	}
 
+	
 }
