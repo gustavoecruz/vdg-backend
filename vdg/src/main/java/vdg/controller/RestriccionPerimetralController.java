@@ -23,6 +23,7 @@ public class RestriccionPerimetralController {
 
 	@Autowired
 	private RestriccionPerimetralRepository restriccionPerimetralRepo;
+	
 	@Autowired
 	ValidadoresRestriccion validador = new ValidadoresRestriccion();
 	
