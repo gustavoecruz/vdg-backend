@@ -2,13 +2,14 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP TABLE IF EXISTS Ubicacion;
 DROP TABLE IF EXISTS FotoIdentificacion;
+DROP TABLE IF EXISTS Incidencia;
 DROP TABLE IF EXISTS RestriccionPerimetral;
 DROP TABLE IF EXISTS Persona;
 DROP TABLE IF EXISTS Direccion;
 DROP TABLE IF EXISTS Usuario;
 DROP TABLE IF EXISTS RolDeUsuario;
-DROP TABLE IF EXISTS Incidencia;
 DROP TABLE IF EXISTS TipoIncidencia;
 
 
@@ -92,6 +93,17 @@ CREATE TABLE TipoIncidencia (
 	PRIMARY KEY (idTipoIncidencia)
 );
 
+CREATE TABLE Ubicacion (
+	idUbicacion INT AUTO_INCREMENT,
+    latitud DECIMAL,
+    longitud DECIMAL,
+    fecha Timestamp,
+    idPersona INT,
+    PRIMARY KEY (idUbicacion),
+	FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
+);
+
+
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('VictimarioIlocalizable');
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('DamnificadaIlocalizable');
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('PruebaDeVidaFallida');
@@ -105,4 +117,3 @@ INSERT INTO RolDeUsuario (nombre) VALUES ('DAMNIFICADA');
 
 INSERT INTO Direccion (calle, altura, idLocalidad) VALUES ('Argerich', '1767', 2156);
 INSERT INTO Usuario (email, contrasena, rolDeUsuario) VALUES ("admin@admin.com", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", "SUPERVISOR");
-INSERT INTO vdg.Incidencia (fecha, descripcion, topico, idRestriccion) VALUES ("2019-09-20 20:42:35.677", "Esta es una incidencia de prueba", "FueraDeRutina", 1);
