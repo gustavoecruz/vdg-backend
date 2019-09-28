@@ -1,10 +1,10 @@
 package vdg.model.controladorUbicaciones;
 
-import java.util.List;
+import java.util.Map;
 
 public interface Subject {
 	
 	//NOTIFICAR CUANDO ACTULICE UBICACION
-	public void notificar(List<Ubicacion> ubicaciones);
+	public void notificar(Map<Integer,Ubicacion> ubicaciones);
 
 }
