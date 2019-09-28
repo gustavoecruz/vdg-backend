@@ -17,6 +17,7 @@ import vdg.model.domain.Usuario;
 import vdg.model.dto.ErrorDTO;
 import vdg.model.email.EmailGateway;
 import vdg.model.logica.Encriptar;
+import vdg.model.logica.GeneradorContraseña;
 import vdg.model.validadores.ValidadoresUsuario;
 import vdg.repository.UsuarioRepository;
 
@@ -43,12 +44,12 @@ public class UsuarioController {
 			error.addMensajeError("Ya existe un usuario creado con ese MAIL");
 			return error;
 		}
-		//usuario.setContrasena(GeneradorContraseña.generarContraseña());
-		//String mensaje = "Se ha dado de alta un nuevo usuario para el sistema.\nSu nueva contraseña es: "+usuario.getContrasena();	
+	//	usuario.setContrasena(GeneradorContraseña.generarContraseña());
+	//	String mensaje = "Se ha dado de alta un nuevo usuario para el sistema.\nSu contraseña es: "+usuario.getContrasena();	
 		usuario.setContrasena(Encriptar.sha256(usuario.getContrasena()));
 		//ENVIAR CONTRASEÑA POR MAIL
 
-		//EmailGateway.enviarMail(usuario.getEmail(), mensaje, "Nueva Contraseña generada");
+	//	EmailGateway.enviarMail(usuario.getEmail(), mensaje, "Nuevo usuario generado");
 		usuarioRepo.save(usuario);
 		return error;
 		
