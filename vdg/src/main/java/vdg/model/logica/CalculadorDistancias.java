@@ -13,7 +13,7 @@ public class CalculadorDistancias {
 		 Double formulaA = Math.sin(distanciaLatitudes / 2) * Math.sin(distanciaLatitudes / 2) + 
 		 Math.cos(convertiraRadianes(lat1.doubleValue())) * Math.cos(convertiraRadianes(lat2.doubleValue())) * 
 		 Math.sin(distanciaLongitudes / 2) * Math.sin(distanciaLongitudes / 2);
-		 Double formulaC = 2 * Math.atan2(Math.sqrt(formulaA), Math.sqrt(1-formulaA));
+		 Double formulaC = 2000 * Math.atan2(Math.sqrt(formulaA), Math.sqrt(1-formulaA));
 		 Double distance = radioTierra * formulaC;
 		 
 		 
