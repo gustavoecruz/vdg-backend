@@ -1,5 +1,6 @@
 package vdg.model.controladorUbicaciones;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,21 +10,32 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import vdg.controller.UbicacionController;
 
-
+@Component
 public class ControladorUbicaciones implements Subject{
 
 	private List<Ubicacion> ubicacionesPersonas;
 	private Map<Integer, Ubicacion> mapUbicacionPersona;
-	private UbicacionController ubicacionController;
+	@Autowired
+	private UbicacionController ubicacionController = new UbicacionController();
 
 	private List<Observer> observers;
 
-	public ControladorUbicaciones() {
+/*	public ControladorUbicaciones() {
 		this.observers = new ArrayList<Observer>();
 		//TRAIGO LAS UBICACIONES QUE ESTAN EN LA DB
 		this.ubicacionesPersonas = this.ubicacionController.listar();
+	}
+	*/
+	public void iniciar() {
+		this.observers = new ArrayList<Observer>();
+		//TRAIGO LAS UBICACIONES QUE ESTAN EN LA DB
+		this.ubicacionesPersonas = this.ubicacionController.listar();
+		
 	}
 	
 	public void enlazarObservador(Observer o) {
@@ -59,12 +71,7 @@ public class ControladorUbicaciones implements Subject{
 		ahora.setTime(ahora.getTime()-600000);
 		//CREO EL TIMESTAMP PARA OBTENER LAS QUE SEAN ANTERIORES A ESE TIMESTAMP
 		Timestamp ahoraStamp = new Timestamp(ahora.getTime());
-		//DE ACA PARA ABAJO IRIA EN LA CLASE DE INCIDENCIAS. LE PASO EL ahoraStamp.
-		//OBTENER LAS UBICACIONES DE LAS PERSONAS QUE SE PERDIÓ LA LOCALIZACIÓN
-		List<Ubicacion> localizacionesPerdidas = ubicacionController.getPerdidasDeLocalizacion(ahoraStamp);
-		for(Ubicacion ubicacion : localizacionesPerdidas) {
-			//Llamar a INCIDENCIAS y que AHI se controle si la genero automatica o NO
-		}
+		
 	}
 	
 	@Override
@@ -75,10 +82,7 @@ public class ControladorUbicaciones implements Subject{
 	}
 
 	
-	public static void main(String[] args) {
-		//CREO UBICACIONES DE PRUEBA. UNA VEZ QUE LAS CREASTE Y LA TENES EN LA BD, COMENTA ESTAS CREACIONES;
-		
-		
+	public static void main(String[] args) {	
 		ControladorDistancias controladorDistancias = new ControladorDistancias();
 		ControladorUbicaciones controladorUbicaciones = new ControladorUbicaciones();
 		controladorUbicaciones.enlazarObservador(controladorDistancias);

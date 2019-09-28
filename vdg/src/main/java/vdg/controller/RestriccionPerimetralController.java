@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import vdg.model.controladorUbicaciones.ControladorDistancias;
+import vdg.model.controladorUbicaciones.ControladorUbicaciones;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.dto.ErrorDTO;
 import vdg.model.validadores.ValidadoresRestriccion;
@@ -26,6 +29,12 @@ public class RestriccionPerimetralController {
 	
 	@Autowired
 	ValidadoresRestriccion validador = new ValidadoresRestriccion();
+	
+	@Autowired
+	ControladorDistancias controladorDistancias = new ControladorDistancias();
+
+	@Autowired
+	ControladorUbicaciones controladorUbicaciones = new ControladorUbicaciones();
 	
 	@GetMapping
 	public List<RestriccionPerimetral> listar() {
@@ -62,6 +71,15 @@ public class RestriccionPerimetralController {
 	@GetMapping("/getByVictimario/{id}")
 	public List<RestriccionPerimetral> getByVictimario(@PathVariable("id") int idPersona) {
 		return restriccionPerimetralRepo.findByIdVictimario(idPersona);
+	}
+	
+	@GetMapping("/getInit")
+	public List<RestriccionPerimetral> getnot() {
+		this.controladorDistancias.iniciar();
+		this.controladorUbicaciones.iniciar();
+		controladorUbicaciones.enlazarObservador(controladorDistancias);
+		controladorUbicaciones.actualizarUbicaciones();
+		return null;
 	}
 
 	public List<RestriccionPerimetral> getByPersona(int idPersona) {

@@ -4,20 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 import vdg.controller.RestriccionPerimetralController;
 import vdg.model.domain.Infraccion;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.logica.CalculadorDistancias;
 
+@Component
 public class ControladorDistancias implements Observer {
 
-	private List<RestriccionPerimetral> restricciones;
+	@Autowired
 	private RestriccionPerimetralController restriccionController;
+	
+	private List<RestriccionPerimetral> restricciones;
 
-	public ControladorDistancias() {
-		restricciones = new ArrayList<RestriccionPerimetral>();
+/*	public ControladorDistancias() {
 		// TRAIGO RESTRICCIONES DE LA DB
-		restricciones = restriccionController.listar();
+		if(this.restriccionController == null)
+			System.out.println("retriccionController NULL");
+		this.restricciones = this.restriccionController.listar();
+	}*/
+	
+	public void iniciar() {
+		this.restricciones = this.restriccionController.listar();
 	}
 
 	@Override
