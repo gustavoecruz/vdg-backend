@@ -1,5 +1,6 @@
 package vdg.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class UbicacionController {
 	public Ubicacion modificar(@RequestBody Ubicacion ubicacion, @PathVariable("idUbicacion") int idUbicacion){
 		ubicacion.setIdUbicacion(idUbicacion);
 		return ubicacionRepo.save(ubicacion);
+	}
+	
+	public List<Ubicacion> getPerdidasDeLocalizacion(Timestamp fechaLimite){
+		return ubicacionRepo.findIlocalizables(fechaLimite);
 	}
 
 }
