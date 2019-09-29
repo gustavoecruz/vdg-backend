@@ -46,7 +46,6 @@ public class ControladorIncidencias {
 			Usuario usuarioIlocalizable = usuarioController.findByIdUsuario(personaIlocalizable.getIdUsuario());
 
 			// Obtengo una restriccion de la persona para obtener una incidencia
-			System.out.println("BUSCO RESTRICCION DE IDPERSONA" + ubicacion.getIdPersona());
 			RestriccionPerimetral restriccion = restriccionController.getByPersona(ubicacion.getIdPersona()).get(0);
 			
 			// Obtengo las incidencias ilocalizables de esa persona de la ubicacion
@@ -92,7 +91,6 @@ public class ControladorIncidencias {
 		
 		descripcion += persona.getApellido() + ", " + persona.getNombre() + ". Su última localización fue el "
 				+ ubicacion.getFecha();
-		System.out.println("LE SETEO LA FECHA " + ahoraStamp);
 		
 		// RECORRO TODAS LAS RESTRICCIONES DE LA PERSONA PARA GENERAR INCIDENCIAS
 		for (RestriccionPerimetral restriccion : restriccionesPersona) {
@@ -103,9 +101,8 @@ public class ControladorIncidencias {
 			incidencia.setTopico(tipoIncidencia);
 			incidencia.setIdRestriccion(restriccion.getIdRestriccion());
 			// HAGO EL POST
-			System.out.println(
-					"EN REALIDAD SE GUARDO CON LA FECHA" + incidenciaController.agregar(incidencia).getFecha());
-			System.out.println("FECHA SETEADA " + incidencia.getFecha());
+			incidenciaController.agregar(incidencia).getFecha();
+			
 		}
 	}
 
