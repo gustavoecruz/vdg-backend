@@ -84,7 +84,7 @@ public class RestriccionPerimetralController {
 
 	public List<RestriccionPerimetral> getByPersona(int idPersona) {
 		List<RestriccionPerimetral> ret = restriccionPerimetralRepo.findByIdVictimario(idPersona);
-		if(ret != null)
+		if(ret.size() != 0)
 			return ret;
 		ret = restriccionPerimetralRepo.findByIdDamnificada(idPersona);
 		return ret;
