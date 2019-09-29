@@ -1,15 +1,12 @@
 package vdg.model.controladorUbicaciones;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import vdg.controller.RestriccionPerimetralController;
-import vdg.model.domain.Infraccion;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.logica.CalculadorDistancias;
 
@@ -18,6 +15,9 @@ public class ControladorDistancias implements Observer {
 
 	@Autowired
 	private RestriccionPerimetralController restriccionController;
+	
+	@Autowired
+	private ControladorInfracciones controladorInfracciones = new ControladorInfracciones();
 	
 	private List<RestriccionPerimetral> restricciones;
 
@@ -50,7 +50,7 @@ public class ControladorDistancias implements Observer {
 			int distancia = generarDistancias(ubicacionVictimario, ubicacionDamnificada).intValue();
 			if (distancia <= r.getDistancia()) {
 				// GENERO LA INFRACCION
-				generarInfraccion(distancia);
+				controlarInfraccion(distancia, r.getIdRestriccion());
 			}
 		}
 	}
@@ -60,11 +60,9 @@ public class ControladorDistancias implements Observer {
 		return CalculadorDistancias.obtenerDistancia(ubicacionVictimario.getLatitud(), ubicacionVictimario.getLongitud(), ubicacionDamnificada.getLatitud(), ubicacionDamnificada.getLongitud());
 	}
 
-	// FALTA VER SI LA INFRACCION ESTA ACTIVA
-	public void generarInfraccion(int distancia) {
-		Infraccion nuevaInfraccion = new Infraccion();
-		nuevaInfraccion.setDistancia(distancia);
-		// GUARDAR EN DB SI NO HAY UNA ACTIVA
+	//CONTROLA SI LA INFRACCION ESTA ACTIVA O NO PARA GENERAR O MODIFICAR
+	public void controlarInfraccion(int distancia, int idRestriccion) {
+		controladorInfracciones.controlarInfraccionActiva(distancia, idRestriccion);
 	}
 
 	// FALTA LLAMAR A ESTE METODO NOSE CUANDO
