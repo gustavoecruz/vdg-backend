@@ -35,7 +35,7 @@ public class ControladorDistancias implements Observer {
 	@Override
 	public void update(Map<Integer, Ubicacion> ubicaciones) {
 		calcularDistancias(ubicaciones);
-		System.out.println("Se actualizó");
+		System.out.println("Se actualizaron las ubicaciones");
 	}
 
 	public void calcularDistancias(Map<Integer, Ubicacion> ubicaciones) {
@@ -50,7 +50,7 @@ public class ControladorDistancias implements Observer {
 			int distancia = generarDistancias(ubicacionVictimario, ubicacionDamnificada).intValue();
 			if (distancia <= r.getDistancia()) {
 				// GENERO LA INFRACCION
-				//controlarInfraccion(distancia, r.getIdRestriccion());
+				controlarInfraccion(distancia, r.getIdRestriccion());
 			}
 		}
 	}
