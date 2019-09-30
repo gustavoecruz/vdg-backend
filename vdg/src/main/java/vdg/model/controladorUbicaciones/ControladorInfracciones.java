@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import vdg.controller.IncidenciaController;
 import vdg.controller.InfraccionController;
@@ -12,6 +13,7 @@ import vdg.model.domain.Incidencia;
 import vdg.model.domain.Infraccion;
 import vdg.model.domain.TipoIncidencia;
 
+@Component
 public class ControladorInfracciones {
 	
 	@Autowired

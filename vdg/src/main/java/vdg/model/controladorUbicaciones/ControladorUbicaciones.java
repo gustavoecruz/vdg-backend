@@ -1,6 +1,5 @@
 package vdg.model.controladorUbicaciones;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,10 +8,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import vdg.controller.UbicacionController;
 import vdg.model.controladorIncidencias.ControladorIncidencias;
 

@@ -81,6 +81,10 @@ public class RestriccionPerimetralController {
 		controladorUbicaciones.actualizarUbicaciones();
 		return null;
 	}
+	
+	public RestriccionPerimetral getByIdRestriccion(int idRestriccion) {
+		return restriccionPerimetralRepo.findByIdRestriccion(idRestriccion);
+	}
 
 	public List<RestriccionPerimetral> getByPersona(int idPersona) {
 		List<RestriccionPerimetral> ret = restriccionPerimetralRepo.findByIdVictimario(idPersona);

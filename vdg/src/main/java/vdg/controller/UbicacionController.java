@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vdg.model.controladorUbicaciones.Ubicacion;
+import vdg.model.domain.RestriccionPerimetral;
+import vdg.model.dto.UbicacionDTO;
 import vdg.repository.UbicacionRepository;
 
 @RestController
@@ -23,10 +25,21 @@ public class UbicacionController {
 	
 	@Autowired
 	private UbicacionRepository ubicacionRepo;
+	@Autowired
+	private RestriccionPerimetralController restriccionController;
 	
 	@GetMapping
 	public List<Ubicacion> listar() {
 		return ubicacionRepo.findAll();
+	}
+	
+	@GetMapping("/getByRestriccion/{idRestriccion}")
+	public UbicacionDTO findByRestriccion(@PathVariable("idRestriccion") int idRestriccion) {
+		UbicacionDTO ubiDTO = new UbicacionDTO();
+		RestriccionPerimetral restriccion = restriccionController.getByIdRestriccion(idRestriccion);
+		ubiDTO.setUbicacionDamnificada(ubicacionRepo.findByIdPersona(restriccion.getIdDamnificada()));
+		ubiDTO.setUbicacionVictimario(ubicacionRepo.findByIdPersona(restriccion.getIdVictimario()));
+		return ubiDTO;
 	}
 	
 	@PostMapping

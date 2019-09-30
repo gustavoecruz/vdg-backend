@@ -14,4 +14,5 @@ public interface UbicacionRepository extends Repository<Ubicacion, Integer>{
 	public Ubicacion findByIdPersona(int idPersona);
 	@Query(value = "SELECT * FROM Ubicacion u WHERE u.fecha<=?1", nativeQuery = true)
 	public List<Ubicacion> findIlocalizables(Timestamp fechaLimite);
+	
 }

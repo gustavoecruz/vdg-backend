@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Incidencia;
-import vdg.model.domain.Persona;
 import vdg.repository.IncidenciaRepository;
 
 @RestController
