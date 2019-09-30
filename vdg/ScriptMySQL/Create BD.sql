@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP TABLE IF EXISTS Infraccion;
 DROP TABLE IF EXISTS Ubicacion;
 DROP TABLE IF EXISTS FotoIdentificacion;
 DROP TABLE IF EXISTS Incidencia;
@@ -23,9 +24,9 @@ CREATE TABLE RolDeUsuario (
 CREATE TABLE Usuario (
 	idUsuario INT AUTO_INCREMENT,
     email VARCHAR(64) NOT NULL,
-   contrasena VARCHAR (64) NOT NULL,
-   rolDeUsuario VARCHAR(25),
-   PRIMARY KEY (idUsuario)
+	contrasena VARCHAR (64) NOT NULL,
+	rolDeUsuario VARCHAR(25),
+	PRIMARY KEY (idUsuario)
 );
 
 CREATE TABLE Direccion (
@@ -43,15 +44,15 @@ CREATE TABLE Direccion (
 CREATE TABLE Persona (
 	idPersona INT AUTO_INCREMENT,
 	nombre VARCHAR(50),
-   apellido VARCHAR (50),
-   DNI VARCHAR (20),
-   telefono VARCHAR (50),
-   fechaNacimiento DATE,
-   idDireccion INT,
-   idUsuario INT,
-   PRIMARY KEY (idPersona),
-   FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion),
-   FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+    apellido VARCHAR (50),
+    DNI VARCHAR (20),
+    telefono VARCHAR (50),
+    fechaNacimiento DATE,
+    idDireccion INT,
+    idUsuario INT,
+    PRIMARY KEY (idPersona),
+    FOREIGN KEY (idDireccion) REFERENCES Direccion(idDireccion),
+    FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 
 
@@ -101,6 +102,16 @@ CREATE TABLE Ubicacion (
     idPersona INT,
     PRIMARY KEY (idUbicacion),
 	FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
+);
+
+CREATE TABLE Infraccion (
+	idInfraccion INT AUTO_INCREMENT,
+    fecha Timestamp,
+    distancia INT,
+	estadoInfraccion VARCHAR (50),
+    idRestriccion INT,
+    PRIMARY KEY (idInfraccion),
+	FOREIGN KEY (idRestriccion) REFERENCES Restriccion(idRestriccion)
 );
 
 
