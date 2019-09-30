@@ -27,18 +27,50 @@ public class ControladorInfracciones {
 		incidenciaController = new IncidenciaController();
 	}
 	
-	//FALTA VER LA REPETICION DE LA INFRACCION.
-	//SI ESTA ACTIVA MODIFICAR LA INFRACCION E INCIDENCIA. SINO CREAR INFRACCION E INCIDENCIA
 	public void controlarInfraccionActiva(int distancia, int idRestriccion){
-		boolean activa = false;
-		//
-		if(activa)
-			System.out.println("modificar infraccion e incidencia");
+		
+		//TOMO LA ULTIMA INFRACCION DE LA RESTRICCION
+		Infraccion ultimaInfraccion = new Infraccion();
+		ultimaInfraccion = infraccionController.getUltimaInfraccion(idRestriccion);
+		
+		if(estaActiva(ultimaInfraccion))
+			modificarInfraccionIncidencia(distancia, ultimaInfraccion);
 		else
 			generarInfraccionIncidencia(distancia, idRestriccion);
 		
 	}
 	
+	public boolean estaActiva(Infraccion ultimaInfraccion) {
+		//OBTENGO LA FECHA ACTUAL PARA MODIFICAR LA INFRACCION		
+		Date ahora = new Date();
+		ahora.setTime(ahora.getTime()-60000);
+		//CREO EL TIMESTAMP
+		Timestamp ahoraStamp = new Timestamp(ahora.getTime());
+		//COMPARO LOS TIMESTAMP
+		
+		if(ultimaInfraccion.getFecha().getTime() >= ahoraStamp.getTime())
+			return true;
+		else
+			return false;
+	}
+	
+	private void modificarInfraccionIncidencia(int distancia, Infraccion ultimaInfraccion) {
+		//OBTENGO LA FECHA ACTUAL PARA LA INFRACCION		
+		Date ahora = new Date();
+		ahora.setTime(ahora.getTime());
+		//CREO EL TIMESTAMP
+		Timestamp ahoraStamp = new Timestamp(ahora.getTime());
+		
+		ultimaInfraccion.setFecha(ahoraStamp);
+		
+		if(distancia>=ultimaInfraccion.getDistancia()) {
+			ultimaInfraccion.setDistancia(distancia);
+			System.out.println("La infraccion se actualizo a : " + distancia);
+		}
+		
+		infraccionController.agregar(ultimaInfraccion);
+	}
+
 	public void generarInfraccionIncidencia(int distancia, int idRestriccion){
 		//GENERO LA NUEVA INFRACCION Y SETEO LOS DATOS NECESARIOS
 		Infraccion nuevaInfraccion = new Infraccion();

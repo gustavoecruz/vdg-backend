@@ -36,5 +36,9 @@ public class InfraccionController {
 	public Infraccion agregar(@RequestBody Infraccion infraccion) {
 		return infraccionRepo.save(infraccion);
 	}
+	
+	public Infraccion getUltimaInfraccion(int idRestriccion) {
+		return infraccionRepo.getUltimaInfraccion(idRestriccion);
+	}
 
 }

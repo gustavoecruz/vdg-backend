@@ -49,7 +49,7 @@ public class ControladorDistancias implements Observer {
 			// LA RESTRICCION
 			int distancia = generarDistancias(ubicacionVictimario, ubicacionDamnificada).intValue();
 			if (distancia <= r.getDistancia()) {
-				// GENERO LA INFRACCION
+				// GENERO O MODIFICO LA INFRACCION
 				controlarInfraccion(distancia, r.getIdRestriccion());
 			}
 		}
