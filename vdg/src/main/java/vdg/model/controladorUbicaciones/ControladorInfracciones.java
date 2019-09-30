@@ -47,7 +47,8 @@ public class ControladorInfracciones {
 		//CREO EL TIMESTAMP
 		Timestamp ahoraStamp = new Timestamp(ahora.getTime());
 		//COMPARO LOS TIMESTAMP
-		
+		if(ultimaInfraccion == null)
+			return false;
 		if(ultimaInfraccion.getFecha().getTime() >= ahoraStamp.getTime())
 			return true;
 		else
