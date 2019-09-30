@@ -111,7 +111,7 @@ CREATE TABLE Infraccion (
 	estadoInfraccion VARCHAR (50),
     idRestriccion INT,
     PRIMARY KEY (idInfraccion),
-	FOREIGN KEY (idRestriccion) REFERENCES Restriccion(idRestriccion)
+	FOREIGN KEY (idRestriccion) REFERENCES RestriccionPerimetral(idRestriccion)
 );
 
 
