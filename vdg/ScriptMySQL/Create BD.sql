@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP TABLE IF EXISTS Notificacion;
 DROP TABLE IF EXISTS Infraccion;
 DROP TABLE IF EXISTS Ubicacion;
 DROP TABLE IF EXISTS FotoIdentificacion;
@@ -114,6 +115,15 @@ CREATE TABLE Infraccion (
 	FOREIGN KEY (idRestriccion) REFERENCES RestriccionPerimetral(idRestriccion)
 );
 
+CREATE TABLE Notificacion (
+	idNotificacion INT AUTO_INCREMENT,
+    idIncidencia INT,
+    idUsuario INT,
+    visto BOOLEAN,
+    PRIMARY KEY (idNotificacion),
+    FOREIGN KEY (idIncidencia) REFERENCES Incidencia(idIncidencia),
+    FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+);
 
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('VictimarioIlocalizable');
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('DamnificadaIlocalizable');
