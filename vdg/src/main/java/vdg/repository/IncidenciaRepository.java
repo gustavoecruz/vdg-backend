@@ -19,6 +19,8 @@ public interface IncidenciaRepository extends Repository<Incidencia, Integer>{
 	@Query(value = "SELECT * FROM Incidencia i WHERE i.idRestriccion=?1 and i.topico='VictimarioIlocalizable' ORDER BY i.fecha DESC", nativeQuery = true)
 	public List<Incidencia> getVictimarioIlocalizable(int idRestriccion);
 	
+	public Incidencia findByIdIncidencia(int idIncidencia);
 	
-
+	@Query(value = "SELECT * FROM Incidencia i WHERE i.idRestriccion=?1 ORDER BY i.fecha DESC", nativeQuery = true)
+	public List<Incidencia> getUltimaIncidencia(int idRestriccion);
 }
