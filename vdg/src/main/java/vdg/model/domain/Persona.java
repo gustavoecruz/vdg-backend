@@ -101,4 +101,7 @@ public class Persona {
 		this.idUsuario = idUsuario;
 	}
 
+	public String nombreToString() {
+		return this.apellido+", "+this.nombre;
+	}
 }
