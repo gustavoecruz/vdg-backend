@@ -55,12 +55,13 @@ public class IncidenciaController {
 		//GUARDO LA INCIDENCIA
 		Incidencia nuevaIncidencia = incidenciaRepo.save(incidencia);
 		//CREO LA NOTIFICAICON CON LOS DATOS DE LA INCIDENCIA CREADA Y LA GUARDO
+		/*
 		Notificacion notificacion = new Notificacion();
 		notificacion.setIdIncidencia(incidenciaRepo.getUltimaIncidencia(nuevaIncidencia.getIdRestriccion()).get(0).getIdIncidencia());
 		notificacion.setIdUsuario(restriccionController.getByIdRestriccion(nuevaIncidencia.getIdRestriccion()).getIdUsuario());
 		notificacion.setVisto(false);
 		notificacionRepo.save(notificacion);
-		
+		*/
 		return nuevaIncidencia;
 	}
 }

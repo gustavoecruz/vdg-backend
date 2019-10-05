@@ -1,5 +1,7 @@
 package vdg.model.domain;
 
+import java.sql.Timestamp;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,17 +13,22 @@ public class Notificacion {
 	private int idNotificacion;
 	
 	@Column
-	private int idIncidencia;
+	private Timestamp fecha;
+	
+	@Column
+	private String asunto;
+	
+	@Column
+	private String descripcion;
+	
+	@Column
+	@Enumerated(EnumType.STRING)
+	private EstadoNotificacion estado;
 	
 	@Column
 	private int idUsuario;
 
-	@Column
-	private boolean visto;
-
-	public Notificacion() {
-		// TODO Auto-generated constructor stub
-	}
+	public Notificacion() {}
 
 	public int getIdNotificacion() {
 		return idNotificacion;
@@ -31,20 +38,36 @@ public class Notificacion {
 		this.idNotificacion = idNotificacion;
 	}
 
-	public int getIdIncidencia() {
-		return idIncidencia;
+	public Timestamp getFecha() {
+		return fecha;
 	}
 
-	public void setIdIncidencia(int idIncidencia) {
-		this.idIncidencia = idIncidencia;
+	public void setFecha(Timestamp fecha) {
+		this.fecha = fecha;
 	}
 
-	public boolean isVisto() {
-		return visto;
+	public String getAsunto() {
+		return asunto;
 	}
 
-	public void setVisto(boolean visto) {
-		this.visto = visto;
+	public void setAsunto(String asunto) {
+		this.asunto = asunto;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public EstadoNotificacion getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoNotificacion estado) {
+		this.estado = estado;
 	}
 
 	public int getIdUsuario() {

@@ -36,7 +36,7 @@ public class NotificacionDTOController {
 	public List<Notificacion> listar(@PathVariable("id") int idUsuario){
 		return notificacionRepo.findByIdUsuario(idUsuario);
 	}
-	
+	/*
 	@GetMapping("/{email}")
 	public List<NotificacionDTO> getByIdUsuario(@PathVariable("email") String email){
 		//TOMO EL USUARIO QUE HACE LA CONSULTA
@@ -66,5 +66,5 @@ public class NotificacionDTOController {
 		
 		return notificacionesDTO;
 	}
-
+*/
 }
