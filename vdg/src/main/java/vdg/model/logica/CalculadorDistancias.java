@@ -2,6 +2,9 @@ package vdg.model.logica;
 
 import java.math.BigDecimal;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CalculadorDistancias {
 
 	private static int radioTierra = 6371; // Radio de la tierra
