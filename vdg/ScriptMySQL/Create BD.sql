@@ -116,10 +116,11 @@ CREATE TABLE Infraccion (
 	FOREIGN KEY (idRestriccion) REFERENCES RestriccionPerimetral(idRestriccion)
 );
 
+
 CREATE TABLE EstadoNotificacion( 
-	idEstadoInfraccion INT AUTO_INCREMENT,
-	estadoInfraccion VARCHAR(50),
-	PRIMARY KEY (idEstadoInfraccion)
+	idEstadoNotificacion INT AUTO_INCREMENT,
+	estadoNotificacion VARCHAR(50),
+	PRIMARY KEY (idEstadoNotificacion)
 	);
 
 CREATE TABLE Notificacion (
@@ -132,6 +133,10 @@ CREATE TABLE Notificacion (
     PRIMARY KEY (idNotificacion),
     FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
+
+INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("NoVista");
+INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("Vista");
+INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("Archivada");
 
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('VictimarioIlocalizable');
 INSERT INTO TipoIncidencia (tipoIncidencia) VALUES ('DamnificadaIlocalizable');
