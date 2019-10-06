@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Notificacion;
 import vdg.repository.NotificacionRepository;
+import vdg.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/Notificacion")
@@ -17,6 +18,8 @@ public class NotificacionController {
 
 	@Autowired
 	private NotificacionRepository notificacionRepo;
+	@Autowired
+	private UsuarioRepository usuarioRepo;
 
 	
 
@@ -25,13 +28,15 @@ public class NotificacionController {
 		return notificacionRepo.findByIdUsuario(idUsuario);
 	}
 	
-	@GetMapping("/getNotificaciones/{idUsuario}")
-	public List<Notificacion> getNotificaciones(@PathVariable("idUsuario") int idUsuario) {
+	@GetMapping("/getNotificaciones/{emailUsuario}")
+	public List<Notificacion> getNotificaciones(@PathVariable("emailUsuario") String emailUsuario) {
+		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
 		return notificacionRepo.findNotificacion(idUsuario);
 	}
 	
-	@GetMapping("/getArchivadas/{idUsuario}")
-	public List<Notificacion> getArchivadas(@PathVariable("idUsuario") int idUsuario) {
+	@GetMapping("/getArchivadas/{emailUsuario}")
+	public List<Notificacion> getArchivadas(@PathVariable("emailUsuario") String emailUsuario) {
+		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
 		return notificacionRepo.findArchivada(idUsuario);
 	}
 }
