@@ -23,7 +23,7 @@ public class Notificacion {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private EstadoNotificacion estado;
+	private EstadoNotificacion estadoNotificacion;
 	
 	@Column
 	private int idUsuario;
@@ -63,11 +63,11 @@ public class Notificacion {
 	}
 
 	public EstadoNotificacion getEstado() {
-		return estado;
+		return estadoNotificacion;
 	}
 
 	public void setEstado(EstadoNotificacion estado) {
-		this.estado = estado;
+		this.estadoNotificacion = estado;
 	}
 
 	public int getIdUsuario() {

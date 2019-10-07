@@ -31,12 +31,12 @@ public class NotificacionController {
 	@GetMapping("/getNotificaciones/{emailUsuario}")
 	public List<Notificacion> getNotificaciones(@PathVariable("emailUsuario") String emailUsuario) {
 		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
-		return notificacionRepo.findNotificacion(idUsuario);
+		return notificacionRepo.findVistasNoVistas(idUsuario);
 	}
 	
 	@GetMapping("/getArchivadas/{emailUsuario}")
 	public List<Notificacion> getArchivadas(@PathVariable("emailUsuario") String emailUsuario) {
 		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
-		return notificacionRepo.findArchivada(idUsuario);
+		return notificacionRepo.findArchivadas(idUsuario);
 	}
 }
