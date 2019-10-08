@@ -12,7 +12,8 @@ public interface UbicacionRutinaRepository extends Repository<UbicacionRutina, I
 	public List<UbicacionRutina> findAll();	
 	public UbicacionRutina save(UbicacionRutina ubicacionRutina);
 	public void delete(UbicacionRutina ubicacionRutina);
-	@Query(value = "SELECT * FROM UbicacionRutina u WHERE u.idPersona=?1", nativeQuery = true)
-	public List<UbicacionRutina> findByidPersona(int idPersona);
+	public List<UbicacionRutina> findByIdPersona(int idPersona);
+	@Query(value = "SELECT * FROM UbicacionRutina u WHERE u.idPersona=?1 and DAYOFWEEK(u.fecha)=?2", nativeQuery = true)
+	public List<UbicacionRutina> findByPersonaAndDia(int idPersona, int dia);
 
 }

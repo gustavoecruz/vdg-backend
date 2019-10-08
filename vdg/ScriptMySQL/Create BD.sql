@@ -98,8 +98,8 @@ CREATE TABLE TipoIncidencia (
 
 CREATE TABLE Ubicacion (
 	idUbicacion INT AUTO_INCREMENT,
-    latitud DECIMAL,
-    longitud DECIMAL,
+    latitud DECIMAL(9,6),
+    longitud DECIMAL(9,6),
     fecha Timestamp,
     idPersona INT,
     PRIMARY KEY (idUbicacion),
@@ -136,8 +136,8 @@ CREATE TABLE Notificacion (
 
 CREATE TABLE UbicacionRutina (
 	idUbicacionRutina INT AUTO_INCREMENT,
-    latitud DECIMAL,
-    longitud DECIMAL,
+    latitud DECIMAL(9,6),
+    longitud DECIMAL(9,6),
     fecha Timestamp,
     idPersona INT,
     PRIMARY KEY (idUbicacionRutina),
