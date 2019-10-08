@@ -134,6 +134,16 @@ CREATE TABLE Notificacion (
     FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 
+CREATE TABLE UbicacionRutina (
+	idUbicacionRutina INT AUTO_INCREMENT,
+    latitud DECIMAL,
+    longitud DECIMAL,
+    fecha Timestamp,
+    idPersona INT,
+    PRIMARY KEY (idUbicacionRutina),
+	FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
+);
+
 INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("NoVista");
 INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("Vista");
 INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("Archivada");
