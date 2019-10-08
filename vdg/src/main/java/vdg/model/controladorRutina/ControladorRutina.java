@@ -1,38 +1,22 @@
 package vdg.model.controladorRutina;
 
-import java.math.BigDecimal;
-
 import vdg.model.controladorUbicaciones.Ubicacion;
 import vdg.model.logica.CalculadorDistancias;
 
 public class ControladorRutina {
-	
-	
 
-	public static void main(String[] args) {
+	//VERIFICO SI LA UBICACION ACTUAL ESTA DENTRO DE UN ÁREA COMUN PARA ESE DIA Y HORARIO
+	public boolean estaEnRutina(Ubicacion ubicacionActual) {
+		HistorialUbicacionFecha historialPersona = new HistorialUbicacionFecha(ubicacionActual);
 		
-		Ubicacion ubicacion = new Ubicacion();
-		UbicacionRutina ubicacionRutina1 = new UbicacionRutina();
-		BigDecimal lat1 = new BigDecimal(-34.585733);
-		ubicacionRutina1.setLatitud(lat1);
-		BigDecimal long1 = new BigDecimal(-58.650988);
-		ubicacionRutina1.setLongitud(long1);
-		UbicacionRutina ubicacionRutina2 = new UbicacionRutina();
-		BigDecimal lat2 = new BigDecimal(-34.586305);
-		ubicacionRutina2.setLatitud(lat2);
-		BigDecimal long2 = new BigDecimal(-58.644667);
-		ubicacionRutina2.setLongitud(long2);
+		Ubicacion ubicacionHabitual = historialPersona.dameUbicacionHabitual(); 
 		
-		HistorialUbicacionFecha hstorial = new HistorialUbicacionFecha(ubicacion);
-		hstorial.ubicacionesFecha.add(ubicacionRutina1);
-		hstorial.ubicacionesFecha.add(ubicacionRutina2);
+		if(ubicacionHabitual!=null)
+			if(CalculadorDistancias.obtenerDistancia(ubicacionActual.getLatitud(), ubicacionActual.getLongitud(),
+					ubicacionHabitual.getLatitud(), ubicacionHabitual.getLongitud()) >= 100)
+				return false;
 		
-		for(UbicacionRutina u: hstorial.ubicacionesFecha) {
-			System.out.println(u.getLatitud() +"/"+u.getLongitud());
-		}
-		
-		System.out.println(CalculadorDistancias.obtenerDistancia(lat1, long1, lat2, long2));
-
+		return true;
 	}
 
 }

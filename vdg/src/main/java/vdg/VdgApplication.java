@@ -3,9 +3,15 @@ package vdg;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
+
+import vdg.controller.UbicacionController;
+import vdg.controller.UbicacionRutinaController;
+import vdg.model.controladorRutina.HistorialUbicacionFecha;
 
 @SpringBootApplication
 @Component
