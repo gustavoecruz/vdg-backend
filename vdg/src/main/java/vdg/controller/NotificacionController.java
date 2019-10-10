@@ -5,8 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vdg.model.domain.EstadoNotificacion;
 import vdg.model.domain.Notificacion;
 import vdg.repository.NotificacionRepository;
 import vdg.repository.UsuarioRepository;
@@ -39,4 +42,21 @@ public class NotificacionController {
 		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
 		return notificacionRepo.findArchivadas(idUsuario);
 	}
+	
+	@PostMapping("/archivar")
+	public Notificacion archivar(@RequestBody int idNotificacion) {
+		Notificacion notificacion = notificacionRepo.findByIdNotificacion(idNotificacion);
+		notificacion.setEstado(EstadoNotificacion.Archivada);
+		notificacionRepo.save(notificacion);
+		return notificacion;
+	}
+	
+	@PostMapping("/setVista")
+	public Notificacion setVista(@RequestBody int idNotificacion) {
+		Notificacion notificacion = notificacionRepo.findByIdNotificacion(idNotificacion);
+		notificacion.setEstado(EstadoNotificacion.Vista);
+		notificacionRepo.save(notificacion);
+		return notificacion;
+	}
+		
 }
