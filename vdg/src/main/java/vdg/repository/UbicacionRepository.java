@@ -12,7 +12,7 @@ public interface UbicacionRepository extends Repository<Ubicacion, Integer>{
 	public Ubicacion save(Ubicacion ubicacion);
 	public void delete(Ubicacion ubicacion);
 	public Ubicacion findByIdPersona(int idPersona);
-	@Query(value = "SELECT * FROM Ubicacion u WHERE u.fecha<=?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Ubicacion u WHERE CONVERT_TZ(u.fecha,@@session.time_zone,'-03:00')<=?1", nativeQuery = true)
 	public List<Ubicacion> findIlocalizables(Timestamp fechaLimite);
 	
 }
