@@ -1,6 +1,7 @@
 package vdg.model.controladorRutina;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,17 +25,16 @@ public class HistorialUbicacionFecha {
 	}
 
 	
-	public void cargarUbicaciones(Ubicacion ubicacionActual) {
-		//TRAIGO LAS UBICACIONES DE LA PERSONA Y DEL DIA EN PARTICULAR
-		this.ubicacionesFecha = this.ubicacionController.getUbicacionesPersonaFecha(ubicacionActual.getIdPersona(),
-				ubicacionActual.getFecha().getDay()+1, ubicacionActual.getFecha().getHours());
+	public void cargarUbicaciones(Timestamp fecha, int idPersona) {
+		//TRAIGO LAS UBICACIONES DE LA PERSONA Y DEL DIA EN PARTICULAR (EL +1 AL DAYA PARA LA QUERY)
+		this.ubicacionesFecha = this.ubicacionController.getUbicacionesPersonaFecha(idPersona, fecha.getDay()+1, fecha.getHours());
 		//FALTA FILTRAR POR LA HORA	!!!!!!!!!!!!	
 	}
 	
 	//DEVUELVE UNA UBICACION PROMEDIO SI LA HAY
-	public Ubicacion dameUbicacionHabitual(Ubicacion ubicacionActual) {
+	public Ubicacion dameUbicacionHabitual(Timestamp fecha, int idPersona) {
 
-		cargarUbicaciones(ubicacionActual);
+		cargarUbicaciones(fecha, idPersona);
 		
 		List<UbicacionRutina> ubicacionesMasRepetidas = new ArrayList<UbicacionRutina>();
 		int maxima = 0;
@@ -89,6 +89,7 @@ public class HistorialUbicacionFecha {
 		
 		ubicacionPromedio.setLatitud(lat.divide(new BigDecimal(ubicaciones.size()), 6, BigDecimal.ROUND_HALF_UP));
 		ubicacionPromedio.setLongitud(lon.divide(new BigDecimal(ubicaciones.size()), 6, BigDecimal.ROUND_HALF_UP));
+		ubicacionPromedio.setIdPersona(ubicaciones.get(0).getIdPersona());
 				
 		return ubicacionPromedio;
 	}

@@ -15,7 +15,8 @@ public class ControladorRutina {
 	//VERIFICO SI LA UBICACION ACTUAL ESTA DENTRO DE UN ÁREA COMUN PARA ESE DIA Y HORARIO
 	public boolean estaEnRutina(Ubicacion ubicacionActual) {
 		
-		Ubicacion ubicacionHabitual = historialPersona.dameUbicacionHabitual(ubicacionActual); 
+		Ubicacion ubicacionHabitual = historialPersona.dameUbicacionHabitual(ubicacionActual.getFecha(),
+				ubicacionActual.getIdPersona()); 
 		
 		System.out.println(ubicacionHabitual.getLatitud() + "/" + ubicacionHabitual.getLongitud());
 		

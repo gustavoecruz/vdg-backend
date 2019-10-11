@@ -46,7 +46,8 @@ public class UbicacionRutinaController {
 /*
 		Date ahora = new Date();
 		ahora.setTime(ahora.getTime());
-		ahora.setDate(0);
+		//6 CAE DOMINGO
+		ahora.setDate(6);
 		ahora.setHours(6);
 		Timestamp ahoraStamp = new Timestamp(ahora.getTime());
 		BigDecimal lat = new BigDecimal(-34.586305);
@@ -69,7 +70,7 @@ public class UbicacionRutinaController {
 		Ubicacion ubicacion = new ObjectMapper().readValue(ubicacionActual, Ubicacion.class);
 		//BUSCO LA UBICACION HABITUAL PARA ESE DIA Y ESA HROA Y LA RETORNO
 		Ubicacion nueva = new Ubicacion();
-		nueva = historial.dameUbicacionHabitual(ubicacion);
+		nueva = historial.dameUbicacionHabitual(ubicacion.getFecha(), ubicacion.getIdPersona());
 		
 		return nueva;
 	}
