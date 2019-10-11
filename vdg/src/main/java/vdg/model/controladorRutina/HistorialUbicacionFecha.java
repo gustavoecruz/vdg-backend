@@ -1,13 +1,10 @@
 package vdg.model.controladorRutina;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import vdg.controller.UbicacionRutinaController;
 import vdg.model.controladorUbicaciones.Ubicacion;
 import vdg.model.logica.CalculadorDistancias;
@@ -25,16 +22,15 @@ public class HistorialUbicacionFecha {
 	}
 
 	
-	public void cargarUbicaciones(Timestamp fecha, int idPersona) {
-		//TRAIGO LAS UBICACIONES DE LA PERSONA Y DEL DIA EN PARTICULAR (EL +1 AL DAYA PARA LA QUERY)
-		this.ubicacionesFecha = this.ubicacionController.getUbicacionesPersonaFecha(idPersona, fecha.getDay()+1, fecha.getHours());
+	public void cargarUbicaciones(int idPersona, int dia, int hora, int minutos) {
+		this.ubicacionesFecha = this.ubicacionController.getUbicacionesPersonaFecha(idPersona, dia, hora, minutos);
 		//FALTA FILTRAR POR LA HORA	!!!!!!!!!!!!	
 	}
 	
 	//DEVUELVE UNA UBICACION PROMEDIO SI LA HAY
-	public Ubicacion dameUbicacionHabitual(Timestamp fecha, int idPersona) {
+	public Ubicacion dameUbicacionHabitual(int idPersona, int dia, int hora, int minutos) {
 
-		cargarUbicaciones(fecha, idPersona);
+		cargarUbicaciones(idPersona, dia, hora, minutos);
 		
 		List<UbicacionRutina> ubicacionesMasRepetidas = new ArrayList<UbicacionRutina>();
 		int maxima = 0;

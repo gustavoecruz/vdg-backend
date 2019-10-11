@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,25 +64,19 @@ public class UbicacionRutinaController {
 */
 		return ubicacionRutinaRepo.findAll();
 	}
-	
-	@GetMapping("/{ubicacionActual}")
-	public Ubicacion ubicacionHabitual(@PathVariable("ubicacionActual") String ubicacionActual)
-			throws JsonParseException, JsonMappingException, IOException{
-		Ubicacion ubicacion = new ObjectMapper().readValue(ubicacionActual, Ubicacion.class);
-		//BUSCO LA UBICACION HABITUAL PARA ESE DIA Y ESA HROA Y LA RETORNO
-		Ubicacion nueva = new Ubicacion();
-		nueva = historial.dameUbicacionHabitual(ubicacion.getFecha(), ubicacion.getIdPersona());
-		
-		return nueva;
-	}
 
-	public List<UbicacionRutina> getUbicacionesPersonaFecha(int idPersona, int dia, int hora){
+	@GetMapping("/persona={idPersona}/dia={dia}/hora={hora}/minutos={minutos}")
+	public Ubicacion ubicacionRutinaria2(@RequestParam("idPersona") int idPersona, @RequestParam("dia") int dia, @RequestParam("hora") int hora, @RequestParam("minutos") int minutos) {
+		return historial.dameUbicacionHabitual(idPersona, dia, hora, minutos);
+	}
+	
+	public List<UbicacionRutina> getUbicacionesPersonaFecha(int idPersona, int dia, int hora, int minutos){
 		
-		for(UbicacionRutina ubicacion: ubicacionRutinaRepo.findByPersonaAndDia(idPersona, dia, hora)) {
+		for(UbicacionRutina ubicacion: ubicacionRutinaRepo.findByPersonaAndFecha(idPersona, dia, hora, minutos)) {
 			System.out.println(ubicacion.getFecha());
 		}
 		
-		return ubicacionRutinaRepo.findByPersonaAndDia(idPersona, dia, hora);
+		return ubicacionRutinaRepo.findByPersonaAndFecha(idPersona, dia, hora, minutos);
 	}
 	
 	@PostMapping

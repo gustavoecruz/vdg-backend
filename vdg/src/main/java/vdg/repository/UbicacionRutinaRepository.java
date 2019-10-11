@@ -17,7 +17,7 @@ public interface UbicacionRutinaRepository extends Repository<UbicacionRutina, I
 
 	public List<UbicacionRutina> findByIdPersona(int idPersona);
 
-	@Query(value = "SELECT * FROM UbicacionRutina u WHERE u.idPersona=?1 and DAYOFWEEK(CONVERT_TZ(u.fecha,@@session.time_zone,'-03:00'))=?2 and HOUR(CONVERT_TZ(u.fecha,@@session.time_zone,'-03:00'))=?3", nativeQuery = true)
-	public List<UbicacionRutina> findByPersonaAndDia(int idPersona, int dia, int hora);
+	@Query(value = "SELECT * FROM UbicacionRutina u WHERE u.idPersona=?1 and DAYOFWEEK(CONVERT_TZ(u.fecha,@@session.time_zone,'-03:00'))=?2 and HOUR(CONVERT_TZ(u.fecha,@@session.time_zone,'-03:00'))=?3 AND MINUTE(u.fecha)=?4", nativeQuery = true)
+	public List<UbicacionRutina> findByPersonaAndFecha(int idPersona, int dia, int hora, int minutos);
 
 }
