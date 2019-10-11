@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vdg.model.controladorRutina.HistorialUbicacionFecha;
 import vdg.model.controladorUbicaciones.Ubicacion;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.dto.UbicacionDTO;

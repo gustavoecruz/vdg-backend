@@ -1,11 +1,6 @@
 package vdg.controller;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,18 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import vdg.model.controladorRutina.ControladorRutina;
 import vdg.model.controladorRutina.HistorialUbicacionFecha;
 import vdg.model.controladorRutina.UbicacionRutina;
 import vdg.model.controladorUbicaciones.Ubicacion;
-import vdg.model.domain.Provincia;
 import vdg.repository.UbicacionRutinaRepository;
 
 @RestController
