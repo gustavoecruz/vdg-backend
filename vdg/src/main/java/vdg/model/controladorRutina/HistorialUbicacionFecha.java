@@ -27,7 +27,7 @@ public class HistorialUbicacionFecha {
 	public void cargarUbicaciones(Ubicacion ubicacionActual) {
 		//TRAIGO LAS UBICACIONES DE LA PERSONA Y DEL DIA EN PARTICULAR
 		this.ubicacionesFecha = this.ubicacionController.getUbicacionesPersonaFecha(ubicacionActual.getIdPersona(),
-				ubicacionActual.getFecha().getDay());
+				ubicacionActual.getFecha().getDay()+1, ubicacionActual.getFecha().getHours());
 		//FALTA FILTRAR POR LA HORA	!!!!!!!!!!!!	
 	}
 	
