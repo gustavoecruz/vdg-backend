@@ -46,7 +46,7 @@ public class HistorialUbicacionFecha {
 		System.out.println("Maxima =" + maxima + ".. largo lista = " + ubicacionesMasRepetidas.size());
 		
 		//CHEQUEO SI LA CANTIDAD DE UBICACIONES QUE QUEDARON ES MAYOR AL 70% Y CALCULO LA UBICACION PROMEDIO PARA RETORNAR
-		if((maxima*100)/ubicacionesFecha.size()>=50) {
+		if(!ubicacionesFecha.isEmpty() && (maxima*100)/ubicacionesFecha.size()>=50) {
 			return getUbicacionPromedio(ubicacionesMasRepetidas);
 		}
 		
