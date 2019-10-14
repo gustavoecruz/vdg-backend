@@ -43,6 +43,13 @@ public class NotificacionController {
 		return notificacionRepo.findArchivadas(idUsuario);
 	}
 	
+	@GetMapping("/getCantNoVistas/{emailUsuario}")
+	public int getCantNoVistas(@PathVariable("emailUsuario") String emailUsuario) {
+		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
+		System.out.println("LA CANTIDAD DE NOTIFICACIONES ES: "+notificacionRepo.countByEstadoNotificacionAndIdUsuario(EstadoNotificacion.NoVista,idUsuario));
+		return notificacionRepo.countByEstadoNotificacionAndIdUsuario(EstadoNotificacion.NoVista,idUsuario);
+	}
+	
 	@PostMapping("/archivar")
 	public Notificacion archivar(@RequestBody int idNotificacion) {
 		Notificacion notificacion = notificacionRepo.findByIdNotificacion(idNotificacion);
