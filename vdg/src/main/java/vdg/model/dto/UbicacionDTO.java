@@ -1,6 +1,6 @@
 package vdg.model.dto;
 
-import vdg.model.controladorUbicaciones.Ubicacion;
+import vdg.model.domain.Ubicacion;
 
 public class UbicacionDTO {
 

@@ -4,7 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
-import vdg.model.controladorUbicaciones.Ubicacion;
+
+import vdg.model.domain.Ubicacion;
 
 public interface UbicacionRepository extends Repository<Ubicacion, Integer>{
 	

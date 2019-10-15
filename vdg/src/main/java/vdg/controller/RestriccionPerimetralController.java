@@ -73,15 +73,6 @@ public class RestriccionPerimetralController {
 		return restriccionPerimetralRepo.findByIdVictimario(idPersona);
 	}
 	
-	@GetMapping("/getInit")
-	public List<RestriccionPerimetral> getnot() {
-		this.controladorDistancias.iniciar();
-		this.controladorUbicaciones.iniciar();
-		controladorUbicaciones.enlazarObservador(controladorDistancias);
-		controladorUbicaciones.actualizarUbicaciones();
-		return null;
-	}
-	
 	public RestriccionPerimetral getByIdRestriccion(int idRestriccion) {
 		return restriccionPerimetralRepo.findByIdRestriccion(idRestriccion);
 	}

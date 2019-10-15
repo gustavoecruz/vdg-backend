@@ -1,4 +1,4 @@
-package vdg.model.controladorUbicaciones;
+package vdg.model.domain;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

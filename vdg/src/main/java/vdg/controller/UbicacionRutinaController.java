@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vdg.model.controladorRutina.ControladorRutina;
 import vdg.model.controladorRutina.HistorialUbicacionFecha;
 import vdg.model.controladorRutina.UbicacionRutina;
-import vdg.model.controladorUbicaciones.Ubicacion;
+import vdg.model.domain.Ubicacion;
 import vdg.repository.UbicacionRutinaRepository;
 
 @RestController

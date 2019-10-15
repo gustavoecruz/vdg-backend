@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import vdg.controller.UbicacionRutinaController;
-import vdg.model.controladorUbicaciones.Ubicacion;
+import vdg.model.domain.Ubicacion;
 import vdg.model.logica.CalculadorDistancias;
 
 @Component

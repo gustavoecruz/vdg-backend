@@ -10,12 +10,12 @@ import vdg.controller.PersonaController;
 import vdg.controller.RestriccionPerimetralController;
 import vdg.controller.UbicacionController;
 import vdg.controller.UsuarioController;
-import vdg.model.controladorUbicaciones.Ubicacion;
 import vdg.model.domain.Incidencia;
 import vdg.model.domain.Persona;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.TipoIncidencia;
+import vdg.model.domain.Ubicacion;
 import vdg.model.domain.Usuario;
 
 @Component

@@ -3,7 +3,8 @@ package vdg.model.controladorRutina;
 import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vdg.model.controladorUbicaciones.Ubicacion;
+
+import vdg.model.domain.Ubicacion;
 import vdg.model.logica.CalculadorDistancias;
 
 @Component

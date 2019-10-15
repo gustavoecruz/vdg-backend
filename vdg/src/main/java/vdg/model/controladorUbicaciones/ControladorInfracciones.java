@@ -37,7 +37,6 @@ public class ControladorInfracciones {
 			modificarInfraccionIncidencia(distancia, ultimaInfraccion);
 		else
 			generarInfraccionIncidencia(distancia, idRestriccion);
-		
 	}
 	
 	public boolean estaActiva(Infraccion ultimaInfraccion) {
@@ -66,7 +65,6 @@ public class ControladorInfracciones {
 		
 		if(distancia>=ultimaInfraccion.getDistancia()) {
 			ultimaInfraccion.setDistancia(distancia);
-			System.out.println("La infraccion se actualizo a : " + distancia);
 		}
 		
 		infraccionController.agregar(ultimaInfraccion);
@@ -94,8 +92,6 @@ public class ControladorInfracciones {
 		nuevaIncidencia.setTopico(TipoIncidencia.InfraccionDeRestriccion);
 		nuevaIncidencia.setIdRestriccion(idRestriccion);
 		incidenciaController.agregar(nuevaIncidencia);
-		
-		System.out.println("Infraccion e incidencia creadas");
 	}
 	
 }

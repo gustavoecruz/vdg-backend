@@ -18,9 +18,6 @@ public class CalculadorDistancias {
 		 Math.sin(distanciaLongitudes / 2) * Math.sin(distanciaLongitudes / 2);
 		 Double formulaC = 2000 * Math.atan2(Math.sqrt(formulaA), Math.sqrt(1-formulaA));
 		 Double distance = radioTierra * formulaC;
-		 
-		 
-		 System.out.println("The distance between two lat and lon is::" + distance);
 		 return distance;
 	}
 
