@@ -67,7 +67,12 @@ public class FormPersonaController {
 		persona.setIdDireccion(idDireccionCreada);
 		personaController.agregar(persona);
 		
-		int idPersonaCreada = personaController.getByDni(persona.getDNI()).getIdPersona();
+		int idPersonaCreada = 0;
+		if(usuario.getRolDeUsuario().equals(RolDeUsuario.DAMNIFICADA))
+			idPersonaCreada = personaController.getDamnificadaByDni(persona.getDNI()).getIdPersona();
+		else
+			idPersonaCreada = personaController.getVictimarioByDni(persona.getDNI()).getIdPersona();
+		
 		// AGREGAR FOTO DE PERFIL
 		if(usuario.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO)) {
 			fotoController.agregar(personaDTO.getFoto(), idPersonaCreada);
@@ -82,14 +87,14 @@ public class FormPersonaController {
 		int idUsuario = p.getIdUsuario();
 		int idDireccion = p.getIdDireccion();
 		ErrorDTO ret = validador.validarBorrarPersona(p);
-		if(ret.getHayError()) {
+		if (ret.getHayError()) {
 			return ret;
 		}
 		Usuario user = usuarioController.findByIdUsuario(idUsuario);
 		personaController.borrar(id);
 		usuarioController.borrar(idUsuario);
 		direccionController.borrar(idDireccion);
-		if(user.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO)) {
+		if (user.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO)) {
 			fotoController.eliminar(id);
 		}
 		return ret;

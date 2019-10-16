@@ -28,7 +28,8 @@ public class ValidadoresPersona {
 	}
 
 	private boolean existePersona(Persona persona) {
-		return personaController.getByDni(persona.getDNI()) != null;
+		return personaController.getDamnificadaByDni(persona.getDNI()) != null
+				|| personaController.getVictimarioByDni(persona.getDNI()) != null;
 	}
 
 }

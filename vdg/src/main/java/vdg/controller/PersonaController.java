@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.Persona;
+import vdg.model.domain.RolDeUsuario;
+import vdg.model.domain.Usuario;
 import vdg.repository.PersonaRepository;
+import vdg.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/Persona")
@@ -21,6 +24,9 @@ public class PersonaController {
 
 	@Autowired
 	private PersonaRepository personaRepo;
+	
+	@Autowired
+	private UsuarioController usuarioController;
 
 	@GetMapping
 	public List<Persona> listar() {
@@ -45,10 +51,28 @@ public class PersonaController {
 		return personas.isEmpty() ? null : personas.get(0);
 	}
 
-	@GetMapping("/GetByDni/{dni}")
-	public Persona getByDni(@PathVariable("dni") String dni) {
+	@GetMapping("/GetDamnificadaByDni/{dni}")
+	public Persona getDamnificadaByDni(@PathVariable("dni") String dni) {
 		List<Persona> personas = personaRepo.findByDni(dni);
-		return personas.isEmpty() ? null : personas.get(0);
+		if(personas.isEmpty())
+			return null;
+		Persona persona = personas.get(0);
+		Usuario usuario = usuarioController.findByIdUsuario(persona.getIdUsuario());
+		if(!usuario.getRolDeUsuario().equals(RolDeUsuario.DAMNIFICADA))
+			return null;
+		return persona;
+	}
+	
+	@GetMapping("/GetVictimarioByDni/{dni}")
+	public Persona getVictimarioByDni(@PathVariable("dni") String dni) {
+		List<Persona> personas = personaRepo.findByDni(dni);
+		if(personas.isEmpty())
+			return null;
+		Persona persona = personas.get(0);
+		Usuario usuario = usuarioController.findByIdUsuario(persona.getIdUsuario());
+		if(!usuario.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO))
+			return null;
+		return persona;
 	}
 
 }
