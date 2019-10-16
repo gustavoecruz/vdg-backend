@@ -78,20 +78,18 @@ public class UbicacionController {
 	}
 	
 	private void chequearUbicacionRutina(Ubicacion ubicacion) {
-		
 		//FALTA CEQUEAR NULOS
 		if((ubicacion.getFecha().getMinutes()>= 00 && ubicacion.getFecha().getMinutes()<= 05) || 
 				(ubicacion.getFecha().getMinutes()>= 30 && ubicacion.getFecha().getMinutes()<= 35)) {
 			//SI LA DIFERENCIA ES MAYOR DE 5 MINUTOS
 			if(ubicacion.getFecha().getTime() -
 					ubicacionRutinaRepo.findByPersonaAndFechaDesc(ubicacion.getIdPersona()).getFecha().getTime() >= 300000) {
-				
+				System.out.println("NO TENGO UBICACION RUTINARIA, ASI QUE GUARDO");
 				UbicacionRutina ubicacionRutinanueva = new UbicacionRutina();
 				ubicacionRutinanueva.setFecha(ubicacion.getFecha());
 				ubicacionRutinanueva.setIdPersona(ubicacion.getIdPersona());
 				ubicacionRutinanueva.setLatitud(ubicacion.getLatitud());
 				ubicacionRutinanueva.setLongitud(ubicacion.getLongitud());
-				ubicacionRutinaRepo.save(ubicacionRutinanueva);
 				
 				ubicacionRutinaController.agregar(ubicacionRutinanueva);
 			}

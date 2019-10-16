@@ -65,8 +65,15 @@ public class UbicacionRutinaController {
 
 	@PostMapping
 	public UbicacionRutina agregar(@RequestBody UbicacionRutina ubicacionRutina) {
-		// DEJO SOLO LA HORA Y LA FECHA
-		ubicacionRutina.getFecha().setMinutes(0);
+		
+		//SI ES RUTINA DE HORA EN PUNTO, SET MINUTOS EN 0, SINO SET MINUTOS EN 30
+		if((ubicacionRutina.getFecha().getMinutes()>= 00 && ubicacionRutina.getFecha().getMinutes()<= 05)) {
+			ubicacionRutina.getFecha().setMinutes(0);
+		}
+		else {
+			ubicacionRutina.getFecha().setMinutes(30);
+		}
+		// DEJO SOLO LA HORA Y MINUTOS
 		ubicacionRutina.getFecha().setSeconds(0);
 		ubicacionRutina.getFecha().setNanos(0);
 
