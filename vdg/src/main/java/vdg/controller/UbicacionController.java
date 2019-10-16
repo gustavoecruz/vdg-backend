@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.qos.logback.core.util.Duration;
+import vdg.model.controladorRutina.UbicacionRutina;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.domain.Ubicacion;
 import vdg.model.dto.UbicacionDTO;
 import vdg.model.logica.CalculadorDistancias;
 import vdg.repository.UbicacionRepository;
+import vdg.repository.UbicacionRutinaRepository;
 
 @RestController
 @RequestMapping("/Ubicacion")
@@ -28,6 +31,10 @@ public class UbicacionController {
 	private UbicacionRepository ubicacionRepo;
 	@Autowired
 	private RestriccionPerimetralController restriccionController;
+	@Autowired
+	private UbicacionRutinaRepository ubicacionRutinaRepo;
+	@Autowired
+	private UbicacionRutinaController ubicacionRutinaController;
 
 	@GetMapping
 	public List<Ubicacion> listar() {
@@ -45,12 +52,14 @@ public class UbicacionController {
 
 	@PostMapping
 	public Ubicacion agregar(@RequestBody Ubicacion ubicacion) {
+		chequearUbicacionRutina(ubicacion);
 		return ubicacionRepo.save(ubicacion);
 	}
 
 	@PutMapping("/{idUbicacion}")
 	public Ubicacion modificar(@RequestBody Ubicacion ubicacion, @PathVariable("idUbicacion") int idUbicacion) {
 		ubicacion.setIdUbicacion(idUbicacion);
+		chequearUbicacionRutina(ubicacion);
 		return ubicacionRepo.save(ubicacion);
 	}
 
@@ -67,5 +76,28 @@ public class UbicacionController {
 	public List<Ubicacion> getPerdidasDeLocalizacion(Timestamp fechaLimite) {
 		return ubicacionRepo.findIlocalizables(fechaLimite);
 	}
+	
+	private void chequearUbicacionRutina(Ubicacion ubicacion) {
+		
+		//FALTA CEQUEAR NULOS
+		if((ubicacion.getFecha().getMinutes()>= 00 && ubicacion.getFecha().getMinutes()<= 05) || 
+				(ubicacion.getFecha().getMinutes()>= 30 && ubicacion.getFecha().getMinutes()<= 35)) {
+			//SI LA DIFERENCIA ES MAYOR DE 5 MINUTOS
+			if(ubicacion.getFecha().getTime() -
+					ubicacionRutinaRepo.findByPersonaAndFechaDesc(ubicacion.getIdPersona()).getFecha().getTime() >= 300000) {
+				
+				UbicacionRutina ubicacionRutinanueva = new UbicacionRutina();
+				ubicacionRutinanueva.setFecha(ubicacion.getFecha());
+				ubicacionRutinanueva.setIdPersona(ubicacion.getIdPersona());
+				ubicacionRutinanueva.setLatitud(ubicacion.getLatitud());
+				ubicacionRutinanueva.setLongitud(ubicacion.getLongitud());
+				ubicacionRutinaRepo.save(ubicacionRutinanueva);
+				
+				ubicacionRutinaController.agregar(ubicacionRutinanueva);
+			}
+		}
+
+	}
+
 
 }
