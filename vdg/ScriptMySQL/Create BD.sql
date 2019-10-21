@@ -2,6 +2,10 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP TABLE IF EXISTS FotoPruebaDeVida;
+DROP TABLE IF EXISTS PruebaDeVida;
+DROP TABLE IF EXISTS EstadoPruebaDeVida;
+DROP TABLE IF EXISTS UbicacionRutina;
 DROP TABLE IF EXISTS Notificacion;
 DROP TABLE IF EXISTS EstadoNotificacion;
 DROP TABLE IF EXISTS Infraccion;
@@ -143,6 +147,39 @@ CREATE TABLE UbicacionRutina (
     PRIMARY KEY (idUbicacionRutina),
 	FOREIGN KEY (idPersona) REFERENCES Persona(idPersona)
 );
+
+CREATE TABLE EstadoPruebaDeVida (
+	idEstadoPruebaDeVida INT AUTO_INCREMENT,
+	estadoPruebaDeVida VARCHAR(25),
+	PRIMARY KEY (idEstadoPruebaDeVida)
+);
+
+CREATE TABLE PruebaDeVida (
+	idPruebaDeVida INT AUTO_INCREMENT,
+    fecha Timestamp,
+    descripcion VARCHAR(400),
+    estado VARCHAR(25),
+    idRestriccion INT,
+    idPersonaRestriccion INT,
+    PRIMARY KEY (idPruebaDeVida),
+    FOREIGN KEY (idRestriccion) REFERENCES RestriccionPerimetral(idRestriccion),
+    FOREIGN KEY (idPersonaRestriccion) REFERENCES Persona(idPersona)
+);
+
+
+CREATE TABLE FotoPruebaDeVida (
+	idFoto INT AUTO_INCREMENT,
+	foto MEDIUMBLOB,
+	idPruebaDeVida INT,
+	PRIMARY KEY (idFoto),
+	FOREIGN KEY (idPruebaDeVida) REFERENCES PruebaDeVida(idPruebaDeVida)
+);
+
+
+
+INSERT INTO EstadoPruebaDeVida (estadoPruebaDeVida) VALUES ("Pendiente");
+INSERT INTO EstadoPruebaDeVida (estadoPruebaDeVida) VALUES ("Aceptada");
+INSERT INTO EstadoPruebaDeVida (estadoPruebaDeVida) VALUES ("Rechazada");
 
 INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("NoVista");
 INSERT INTO EstadoNotificacion (estadoNotificacion) VALUES ("Vista");
