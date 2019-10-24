@@ -9,6 +9,6 @@ import vdg.model.domain.PruebaDeVida;
 public interface PruebaDeVidaRepository extends Repository<PruebaDeVida, Integer>{
 
 	public List<PruebaDeVida> findByIdRestriccion(int idRestriccion);
-	public List<PruebaDeVida> findByIdPersonaRestriccion(int idPersonaRestriccion);
+	public List<PruebaDeVida> findByIdPersonaRestriccionOrderByFechaDesc(int idPersonaRestriccion);
 	public PruebaDeVida save(PruebaDeVida pruebaDeVida);
 }

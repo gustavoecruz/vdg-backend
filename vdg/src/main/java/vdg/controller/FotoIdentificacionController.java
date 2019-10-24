@@ -27,6 +27,11 @@ public class FotoIdentificacionController {
 		return fotoIdentificacionRepo.findAll();
 	}
 
+	@GetMapping("{idPersona}")
+	public FotoIdentificacion getFotoIdentificacionPersona(@PathVariable("idPersona") int idPersona) {
+		return fotoIdentificacionRepo.findByIdPersona(idPersona);
+	}
+
 	@PostMapping
 	public FotoIdentificacion agregar(String foto, int idPersona) {
 		Decoder decoder = Base64.getDecoder();

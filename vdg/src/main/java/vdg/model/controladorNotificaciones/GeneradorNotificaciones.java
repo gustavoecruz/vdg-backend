@@ -55,7 +55,7 @@ public class GeneradorNotificaciones {
 					+ victimario.nombreToString() + " - " + damnificada.nombreToString());
 		
 		} else if (incidencia.getTopico().equals(TipoIncidencia.PruebaDeVidaFallida)) {
-			notificacion.setAsunto("Fallo en prueba de vida");
+			notificacion.setAsunto("Fallo en prueba de vida de " + victimario.getApellido() + ", " + victimario.getNombre());
 
 			notificacion.setDescripcion("Fallo en prueba de vida. Por favor Verifique las incidencias de la restriccion: "
 					+ victimario.nombreToString() + " - " + damnificada.nombreToString());

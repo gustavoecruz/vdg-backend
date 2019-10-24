@@ -31,7 +31,7 @@ public class ControladorUbicaciones {
 
 	}
 
-	@Scheduled(fixedRate = 15000)
+//	@Scheduled(fixedRate = 15000)
 	public void actualizarUbicaciones() {
 		System.out.println("REVISO LAS UBICACIONES A LAS: "+new Date());
 		// ACTUALIZAR LAS ubicacionesPersonas

@@ -8,7 +8,7 @@ import vdg.model.domain.Incidencia;
 
 public interface IncidenciaRepository extends Repository<Incidencia, Integer>{
 	
-	public List<Incidencia> findByIdRestriccion(int idRestriccion);
+	public List<Incidencia> findByIdRestriccionOrderByFechaDesc(int idRestriccion);
 	public Incidencia save(Incidencia incidencia);
 	public void delete(Incidencia incidencia);
 	@Query(value = "SELECT * FROM Incidencia i WHERE i.idRestriccion=?1 and (i.topico='VictimarioIlocalizable' "
