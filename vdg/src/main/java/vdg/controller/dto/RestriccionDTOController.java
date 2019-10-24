@@ -43,8 +43,16 @@ public class RestriccionDTOController {
 	public List<RestriccionDTO> getByUsuario(@PathVariable("email") String email) {
 		Usuario usuario = usuarioController.findByEmail(email);
 		List<RestriccionPerimetral> restricciones = restriccionPerimetralRepo.findByIdUsuario(usuario.getIdUsuario());
-
 		return crearRestriccionesDto(restricciones);
+	}
+	
+	@GetMapping("/getByUsuarioApp/{email}")
+	public List<RestriccionDTO> getByUsuarioApp(@PathVariable("email") String email) {
+		Usuario usuario = usuarioController.findByEmail(email);
+		Persona persona = personaController.getByIdUsuario(usuario.getIdUsuario());
+		System.out.println("USUARIO: "+email+" ------ PERSONA: "+persona.getIdPersona());
+		System.out.println("CANTIDAD: "+getByDamnificada(persona.getIdPersona()).size());
+		return getByPersona(persona, usuario.getRolDeUsuario());
 	}
 
 	@GetMapping("/getByDamnificada/{id}")
@@ -65,7 +73,7 @@ public class RestriccionDTOController {
 			restricciones = restriccionPerimetralRepo.findByIdDamnificada(persona.getIdPersona());
 		else
 			restricciones = restriccionPerimetralRepo.findByIdVictimario(persona.getIdPersona());
-
+		System.out.println("CANT RESTRICCIONES: "+restricciones.size());
 		return crearRestriccionesDto(restricciones);
 	}
 	
