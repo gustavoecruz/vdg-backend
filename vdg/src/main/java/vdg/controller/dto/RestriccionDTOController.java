@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vdg.controller.PersonaController;
+import vdg.controller.UbicacionController;
 import vdg.controller.UsuarioController;
 import vdg.model.domain.Persona;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.Usuario;
 import vdg.model.dto.RestriccionDTO;
+import vdg.model.dto.UbicacionDTO;
 import vdg.model.validadores.ValidadoresFormPersona;
 import vdg.repository.RestriccionPerimetralRepository;
 
@@ -28,6 +30,8 @@ public class RestriccionDTOController {
 	@Autowired
 	UsuarioController usuarioController;
 	@Autowired
+	UbicacionController ubicacionController;
+	@Autowired
 	ValidadoresFormPersona validador = new ValidadoresFormPersona();
 	@Autowired
 	private RestriccionPerimetralRepository restriccionPerimetralRepo;
@@ -36,7 +40,7 @@ public class RestriccionDTOController {
 	public List<RestriccionDTO> listar() {
 		List<RestriccionPerimetral> restricciones = restriccionPerimetralRepo.findAll();
 		return crearRestriccionesDto(restricciones);
-		
+
 	}
 
 	@GetMapping("/getByUsuario/{email}")
@@ -45,14 +49,23 @@ public class RestriccionDTOController {
 		List<RestriccionPerimetral> restricciones = restriccionPerimetralRepo.findByIdUsuario(usuario.getIdUsuario());
 		return crearRestriccionesDto(restricciones);
 	}
-	
+
 	@GetMapping("/getByUsuarioApp/{email}")
 	public List<RestriccionDTO> getByUsuarioApp(@PathVariable("email") String email) {
 		Usuario usuario = usuarioController.findByEmail(email);
 		Persona persona = personaController.getByIdUsuario(usuario.getIdUsuario());
-		System.out.println("USUARIO: "+email+" ------ PERSONA: "+persona.getIdPersona());
-		System.out.println("CANTIDAD: "+getByDamnificada(persona.getIdPersona()).size());
-		return getByPersona(persona, usuario.getRolDeUsuario());
+		List<RestriccionDTO> restricciones = getByPersona(persona, usuario.getRolDeUsuario());
+		// Ahora recorro las restricciones. Obtengo la ubiDTO de cada una, y me fijo si
+		// infringe. Si infringe, la agrego para devolver Para que vea la ubicacion
+		List<RestriccionDTO> ret = new ArrayList<>();
+		for (RestriccionDTO restriccion : restricciones) {
+			int idRestriccion = restriccion.getRestriccion().getIdRestriccion();
+			UbicacionDTO ubicacionDTO = ubicacionController.findByRestriccion(idRestriccion);
+			if(ubicacionController.estaInfringiendo(idRestriccion, ubicacionDTO)) {
+				ret.add(restriccion);
+			}
+		}
+		return ret;
 	}
 
 	@GetMapping("/getByDamnificada/{id}")
@@ -73,10 +86,9 @@ public class RestriccionDTOController {
 			restricciones = restriccionPerimetralRepo.findByIdDamnificada(persona.getIdPersona());
 		else
 			restricciones = restriccionPerimetralRepo.findByIdVictimario(persona.getIdPersona());
-		System.out.println("CANT RESTRICCIONES: "+restricciones.size());
 		return crearRestriccionesDto(restricciones);
 	}
-	
+
 	private List<RestriccionDTO> crearRestriccionesDto(List<RestriccionPerimetral> restricciones) {
 		List<RestriccionDTO> ret = new ArrayList<RestriccionDTO>();
 		Persona victimario;
