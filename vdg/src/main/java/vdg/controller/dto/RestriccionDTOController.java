@@ -16,10 +16,12 @@ import vdg.model.domain.Persona;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.Usuario;
+import vdg.model.domain.VistaRestriccionDTO;
 import vdg.model.dto.RestriccionDTO;
 import vdg.model.dto.UbicacionDTO;
 import vdg.model.validadores.ValidadoresFormPersona;
 import vdg.repository.RestriccionPerimetralRepository;
+import vdg.repository.VistaRestriccionDTORepository;
 
 @RestController
 @RequestMapping("/RestriccionDTO")
@@ -35,6 +37,9 @@ public class RestriccionDTOController {
 	ValidadoresFormPersona validador = new ValidadoresFormPersona();
 	@Autowired
 	private RestriccionPerimetralRepository restriccionPerimetralRepo;
+	
+	@Autowired
+	private VistaRestriccionDTORepository vistaRestriccionDTORepo;
 
 	@GetMapping
 	public List<RestriccionDTO> listar() {
@@ -106,5 +111,33 @@ public class RestriccionDTOController {
 		}
 		return ret;
 	}
+	
+	@GetMapping("{idAdministrativo}")
+	public List<RestriccionDTO> getRestriccionesAdministrativo(@PathVariable("idAdministrativo") int idAdministrativo){
+		List<VistaRestriccionDTO> restricciones = vistaRestriccionDTORepo.findByIdAdministrativo(idAdministrativo);
+		List<RestriccionDTO> ret = new ArrayList<RestriccionDTO>();
+		Persona victimario = new Persona();
+		Persona damnificada = new Persona();
+		Usuario usuario = new Usuario();
+		RestriccionPerimetral restriccion = new RestriccionPerimetral();
+
+		for(VistaRestriccionDTO res: restricciones) {
+			victimario.setIdPersona(res.getIdVictimario());
+			victimario.setApellido(res.getApellidoVictimario());
+			victimario.setNombre(res.getNombreVictimario());
+			damnificada.setIdPersona(res.getIdDamnificada());
+			damnificada.setApellido(res.getApellidoDamnificada());
+			damnificada.setNombre(res.getNombreDamnificada());
+			usuario.setIdUsuario(res.getIdAdministrativo());
+			restriccion.setIdRestriccion(res.getIdRestriccion());
+			restriccion.setDistancia(res.getDistanvica());
+			
+			RestriccionDTO restriccionDTO = new RestriccionDTO(damnificada, victimario, usuario, restriccion);
+			ret.add(restriccionDTO);
+		}
+		
+		return ret;
+	};
+
 
 }
