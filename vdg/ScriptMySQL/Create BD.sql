@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP VIEW IF EXISTS VistaRestriccionDTO;
 DROP TABLE IF EXISTS FotoPruebaDeVida;
 DROP TABLE IF EXISTS PruebaDeVida;
 DROP TABLE IF EXISTS EstadoPruebaDeVida;
@@ -175,6 +176,21 @@ CREATE TABLE FotoPruebaDeVida (
 	FOREIGN KEY (idPruebaDeVida) REFERENCES PruebaDeVida(idPruebaDeVida)
 );
 
+CREATE VIEW VistaRestriccionDTO AS
+SELECT  r.idRestriccion idRestriccion,
+		r.distancia distancia,
+        r.idUsuario idAdministrativo,
+        r.idVictimario idVictimario,
+        pV.apellido apellidoVictimario,
+        pV.nombre nombreVictimario,
+        r.idVictimario idDamnificada,
+        pD.apellido apellidoDamnificada,
+        pD.nombre nombreDamnificada
+FROM    RestriccionPerimetral r
+        INNER JOIN Persona pV
+            ON r.idVictimario = pV.idPersona
+        INNER JOIN Persona pD
+            ON r.idDamnificada = pD.idPersona;
 
 
 INSERT INTO EstadoPruebaDeVida (estadoPruebaDeVida) VALUES ("Pendiente");
