@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vdg.controller.PersonaController;
+import vdg.controller.UbicacionController;
 import vdg.controller.UsuarioController;
 import vdg.model.domain.Persona;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.Usuario;
+import vdg.model.domain.VistaRestriccionDTO;
 import vdg.model.dto.RestriccionDTO;
+import vdg.model.dto.UbicacionDTO;
 import vdg.model.validadores.ValidadoresFormPersona;
 import vdg.repository.RestriccionPerimetralRepository;
+import vdg.repository.VistaRestriccionDTORepository;
 
 @RestController
 @RequestMapping("/RestriccionDTO")
@@ -28,23 +32,46 @@ public class RestriccionDTOController {
 	@Autowired
 	UsuarioController usuarioController;
 	@Autowired
+	UbicacionController ubicacionController;
+	@Autowired
 	ValidadoresFormPersona validador = new ValidadoresFormPersona();
 	@Autowired
 	private RestriccionPerimetralRepository restriccionPerimetralRepo;
+	
+	@Autowired
+	private VistaRestriccionDTORepository vistaRestriccionDTORepo;
 
 	@GetMapping
 	public List<RestriccionDTO> listar() {
-		List<RestriccionPerimetral> restricciones = restriccionPerimetralRepo.findAll();
-		return crearRestriccionesDto(restricciones);
+		List<VistaRestriccionDTO> restricciones = vistaRestriccionDTORepo.findAll();
+		return generarRestriccionsDTO(restricciones);
+	}
+	
+	@GetMapping("{emailAdministrativo}")
+	public List<RestriccionDTO> getRestriccionesAdministrativo(@PathVariable("emailAdministrativo") String emailAdministrativo){
+		//TRAIGO LAS RESTRICCIONES
+		Usuario adm = usuarioController.findByEmail(emailAdministrativo);
+		List<VistaRestriccionDTO> restricciones = vistaRestriccionDTORepo.findByIdAdministrativo(adm.getIdUsuario());
 		
+		return generarRestriccionsDTO(restricciones);
 	}
 
-	@GetMapping("/getByUsuario/{email}")
-	public List<RestriccionDTO> getByUsuario(@PathVariable("email") String email) {
+	@GetMapping("/getByUsuarioApp/{email}")
+	public List<RestriccionDTO> getByUsuarioApp(@PathVariable("email") String email) {
 		Usuario usuario = usuarioController.findByEmail(email);
-		List<RestriccionPerimetral> restricciones = restriccionPerimetralRepo.findByIdUsuario(usuario.getIdUsuario());
-
-		return crearRestriccionesDto(restricciones);
+		Persona persona = personaController.getByIdUsuario(usuario.getIdUsuario());
+		List<RestriccionDTO> restricciones = getByPersona(persona, usuario.getRolDeUsuario());
+		// Ahora recorro las restricciones. Obtengo la ubiDTO de cada una, y me fijo si
+		// infringe. Si infringe, la agrego para devolver Para que vea la ubicacion
+		List<RestriccionDTO> ret = new ArrayList<>();
+		for (RestriccionDTO restriccion : restricciones) {
+			int idRestriccion = restriccion.getRestriccion().getIdRestriccion();
+			UbicacionDTO ubicacionDTO = ubicacionController.findByRestriccion(idRestriccion);
+			if(ubicacionController.estaInfringiendo(idRestriccion, ubicacionDTO)) {
+				ret.add(restriccion);
+			}
+		}
+		return ret;
 	}
 
 	@GetMapping("/getByDamnificada/{id}")
@@ -65,10 +92,9 @@ public class RestriccionDTOController {
 			restricciones = restriccionPerimetralRepo.findByIdDamnificada(persona.getIdPersona());
 		else
 			restricciones = restriccionPerimetralRepo.findByIdVictimario(persona.getIdPersona());
-
 		return crearRestriccionesDto(restricciones);
 	}
-	
+
 	private List<RestriccionDTO> crearRestriccionesDto(List<RestriccionPerimetral> restricciones) {
 		List<RestriccionDTO> ret = new ArrayList<RestriccionDTO>();
 		Persona victimario;
@@ -86,5 +112,35 @@ public class RestriccionDTOController {
 		}
 		return ret;
 	}
+	
+	private List<RestriccionDTO> generarRestriccionsDTO(List<VistaRestriccionDTO> restricciones) {
+		
+		List<RestriccionDTO> ret = new ArrayList<RestriccionDTO>();
 
+		for(VistaRestriccionDTO res: restricciones) {
+			Persona victimario = new Persona();
+			Persona damnificada = new Persona();
+			Usuario usuario = new Usuario();
+			RestriccionPerimetral restriccion = new RestriccionPerimetral();
+			victimario.setIdPersona(res.getIdVictimario());
+			victimario.setApellido(res.getApellidoVictimario());
+			victimario.setNombre(res.getNombreVictimario());
+			damnificada.setIdPersona(res.getIdDamnificada());
+			damnificada.setApellido(res.getApellidoDamnificada());
+			damnificada.setNombre(res.getNombreDamnificada());
+			usuario.setIdUsuario(res.getIdAdministrativo());
+			restriccion.setIdRestriccion(res.getIdRestriccion());
+			restriccion.setDistancia(res.getDistanvica());
+			restriccion.setIdDamnificada(res.getIdDamnificada());
+			restriccion.setIdVictimario(res.getIdVictimario());
+			
+			RestriccionDTO restriccionDTO = new RestriccionDTO(damnificada, victimario, usuario, restriccion);
+			ret.add(restriccionDTO);
+		}
+		
+		return ret;
+	}
+
+	
+	
 }

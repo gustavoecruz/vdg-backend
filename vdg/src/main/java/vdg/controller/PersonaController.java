@@ -50,6 +50,11 @@ public class PersonaController {
 		List<Persona> personas = personaRepo.findById(id);
 		return personas.isEmpty() ? null : personas.get(0);
 	}
+	
+	public Persona getByIdUsuario(int idUsuario) {
+		List<Persona> personas = personaRepo.findByIdUsuario(idUsuario);
+		return personas.isEmpty() ? null : personas.get(0);
+	}
 
 	@GetMapping("/GetDamnificadaByDni/{dni}")
 	public Persona getDamnificadaByDni(@PathVariable("dni") String dni) {

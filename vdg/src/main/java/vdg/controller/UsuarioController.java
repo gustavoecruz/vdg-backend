@@ -89,6 +89,21 @@ public class UsuarioController {
 		return false;
 
 	}
+	
+	@PostMapping("/loginApp")
+	public RolDeUsuario loginApp(@RequestBody Map<String, String> info) {
+
+		Usuario user = findByEmail(info.get("email"));
+		if (user == null)
+			return null;
+		if(!(user.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO) || 
+				user.getRolDeUsuario().equals(RolDeUsuario.DAMNIFICADA)))
+			return null;
+		if (user.getContrasena().equals(info.get("contrasena")))
+			return user.getRolDeUsuario();
+		return null;
+
+	}
 
 	public Usuario findByIdUsuario(int idUsuario) {
 		List<Usuario> usuarios = usuarioRepo.findByIdUsuario(idUsuario);
