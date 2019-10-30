@@ -16,11 +16,11 @@ public interface NotificacionRepository extends Repository<Notificacion, Integer
 	public int countByEstadoNotificacionAndIdUsuario(EstadoNotificacion estado, int idUsuario);
 
 	@Query(value = "SELECT * FROM Notificacion n WHERE n.idUsuario=?1 and (n.estadoNotificacion='Vista' "
-			+ "or n.estadoNotificacion='NoVista') ORDER BY n.fecha DESC", nativeQuery = true)
-	public List<Notificacion> findVistasNoVistas(int idUsuario);
+			+ "or n.estadoNotificacion='NoVista') ORDER BY n.fecha DESC LIMIT ?2", nativeQuery = true)
+	public List<Notificacion> findVistasNoVistas(int idUsuario, int limit);
 
 	@Query(value = "SELECT * FROM Notificacion n WHERE n.idUsuario=?1 and n.estadoNotificacion='Archivada'"
-			+ " ORDER BY n.fecha DESC", nativeQuery = true)
-	public List<Notificacion> findArchivadas(int idUsuario);
+			+ " ORDER BY n.fecha DESC LIMIT ?2", nativeQuery = true)
+	public List<Notificacion> findArchivadas(int idUsuario, int limit);
 	
 }

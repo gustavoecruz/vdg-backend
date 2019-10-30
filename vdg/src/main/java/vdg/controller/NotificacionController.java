@@ -30,17 +30,15 @@ public class NotificacionController {
 	public List<Notificacion> listar(@PathVariable("idUsuario") int idUsuario) {
 		return notificacionRepo.findByIdUsuario(idUsuario);
 	}
-	
-	@GetMapping("/getNotificaciones/{emailUsuario}")
-	public List<Notificacion> getNotificaciones(@PathVariable("emailUsuario") String emailUsuario) {
-		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
-		return notificacionRepo.findVistasNoVistas(idUsuario);
+
+	@GetMapping("/getNotificaciones/{idAdm}/{cantidad}")
+	public List<Notificacion> getNotificaciones(@PathVariable("idAdm") int idAdm, @PathVariable("cantidad") int cantidad) {
+		return notificacionRepo.findVistasNoVistas(idAdm, cantidad);
 	}
-	
-	@GetMapping("/getArchivadas/{emailUsuario}")
-	public List<Notificacion> getArchivadas(@PathVariable("emailUsuario") String emailUsuario) {
-		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
-		return notificacionRepo.findArchivadas(idUsuario);
+
+	@GetMapping("/getArchivadas/{idAdm}/{cantidad}")
+	public List<Notificacion> getArchivadas(@PathVariable("idAdm") int idAdm, @PathVariable("cantidad") int cantidad) {
+		return notificacionRepo.findArchivadas(idAdm, cantidad);
 	}
 	
 	@GetMapping("/getCantNoVistas/{emailUsuario}")
