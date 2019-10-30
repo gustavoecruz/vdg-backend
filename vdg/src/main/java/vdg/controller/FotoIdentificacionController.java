@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.FotoIdentificacion;
+import vdg.model.domain.FotoIdentificacion2;
 import vdg.repository.FotoIdentificacionRepository;
 
 @RestController
@@ -72,12 +73,17 @@ public class FotoIdentificacionController {
 	//ESTE METODO DEVUELVE EL STRING DE LA FOTO CON EL ENCABEZADO PARA INDICAR AL FRONT
 	//QUE ES UNA IMAGEN
 	@GetMapping("/probando")
-	public String getProbando() {
-		/*List<FotoIdentificacion> fotos = fotoIdentificacionRepo.findAll();
+	public FotoIdentificacion2 getProbando() {
+		List<FotoIdentificacion> fotos = fotoIdentificacionRepo.findAll();
+		FotoIdentificacion2 foto2= new FotoIdentificacion2();
 		for (FotoIdentificacion foto : fotos) {
-			return "data:image/png;base64,"+ Base64.getEncoder().encodeToString(foto.getFoto());
-
-		}*/
+			if(foto.getIdFoto() == 2) {
+			foto2.setFoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(foto.getFoto()));
+			foto2.setIdFoto(1);
+			foto2.setIdPersona(1);
+			return foto2;
+			}
+		}
 		return null;
 	}
 	
