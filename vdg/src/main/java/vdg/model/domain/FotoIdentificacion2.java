@@ -1,7 +1,5 @@
 package vdg.model.domain;
 
-import javax.persistence.*;
-
 
 public class FotoIdentificacion2 {
 	

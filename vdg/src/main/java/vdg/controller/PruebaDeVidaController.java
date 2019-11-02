@@ -19,6 +19,7 @@ import vdg.model.domain.Incidencia;
 import vdg.model.domain.Persona;
 import vdg.model.domain.PruebaDeVida;
 import vdg.model.domain.TipoIncidencia;
+import vdg.model.domain.Usuario;
 import vdg.repository.PruebaDeVidaRepository;
 
 @RestController
@@ -35,9 +36,19 @@ public class PruebaDeVidaController {
 	@Autowired
 	private PersonaController personaController;
 	
+	@Autowired
+	private UsuarioController usuarioController;
+	
 	@GetMapping("/{idPersona}")
 	public List<PruebaDeVida> getPruebasDeVidaPersona(@PathVariable("idPersona") int idPersona){
 		return pruebaDeVidaRepo.findByIdPersonaRestriccionOrderByFechaDesc(idPersona);
+	}
+	
+	@GetMapping("/getByMail/{email}")
+	public List<PruebaDeVida> getPruebasDeVidaApp(@PathVariable("email") String email){
+		Usuario u = usuarioController.findByEmail(email);
+		Persona p = personaController.getByIdUsuario(u.getIdUsuario());
+		return pruebaDeVidaRepo.findByIdPersonaRestriccionOrderByFechaDesc(p.getIdPersona());
 	}
 	
 	@PostMapping
