@@ -1,18 +1,9 @@
 package vdg.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,17 +43,6 @@ public class FotoIdentificacionController {
 			}
 		}*/
 		return fotoIdentificacionRepo.findAll();
-	}
-	
-	//ESTE METODO DEVUELVE EL STRING DE LA FOTO SIN EL ENCABEZADO PARA INDICAR AL FRONT
-	//QUE ES UNA IMAGEN
-	@GetMapping("/strfoto")
-	public String getStringFoto() {
-		/*List<FotoIdentificacion> fotos = fotoIdentificacionRepo.findAll();
-		for (FotoIdentificacion foto : fotos) {
-			return Base64.getEncoder().encodeToString(foto.getFoto());
-		}*/
-		return null;
 	}
 
 	@GetMapping("{idPersona}")
