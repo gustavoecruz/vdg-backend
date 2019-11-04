@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP TABLE IF EXISTS Contacto;
 DROP VIEW IF EXISTS VistaRestriccionDTO;
 DROP TABLE IF EXISTS FotoPruebaDeVida;
 DROP TABLE IF EXISTS PruebaDeVida;
@@ -174,6 +175,18 @@ CREATE TABLE FotoPruebaDeVida (
 	idPruebaDeVida INT,
 	PRIMARY KEY (idFoto),
 	FOREIGN KEY (idPruebaDeVida) REFERENCES PruebaDeVida(idPruebaDeVida)
+);
+
+CREATE TABLE Contacto (
+	idContacto INT AUTO_INCREMENT,
+    apellido VARCHAR(50),
+    nombre VARCHAR(50),
+    email VARCHAR(50),
+    telefono VARCHAR(30),
+    relacion VARCHAR(30),
+    idDamnificada INT,
+    PRIMARY KEY (idContacto),
+    FOREIGN KEY (idDamnificada) REFERENCES Persona(idPersona)
 );
 
 CREATE VIEW VistaRestriccionDTO AS
