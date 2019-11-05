@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP VIEW IF EXISTS VistaUsuarioPersona;
 DROP TABLE IF EXISTS Contacto;
 DROP VIEW IF EXISTS VistaRestriccionDTO;
 DROP TABLE IF EXISTS FotoPruebaDeVida;
@@ -204,6 +205,16 @@ FROM    RestriccionPerimetral r
             ON r.idVictimario = pV.idPersona
         INNER JOIN Persona pD
             ON r.idDamnificada = pD.idPersona;
+
+CREATE VIEW VistaUsuarioPersona AS
+SELECT	u.idUsuario idUsuario,
+        u.email email,
+        u.rolDeUsuario rolDeUsuario,
+        p.idPersona idPersona
+FROM    Usuario u
+        INNER JOIN Persona p
+            ON u.idUsuario = p.idUsuario;
+
 
 
 INSERT INTO EstadoPruebaDeVida (estadoPruebaDeVida) VALUES ("Pendiente");

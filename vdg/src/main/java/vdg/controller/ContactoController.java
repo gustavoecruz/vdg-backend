@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vdg.model.domain.Contacto;
+import vdg.model.domain.Persona;
+import vdg.model.domain.Usuario;
 import vdg.repository.ContactoRepository;
 
 @RestController
@@ -22,10 +24,16 @@ public class ContactoController {
 
 	@Autowired
 	private ContactoRepository contactoRepo;
+	@Autowired
+	private UsuarioController usuarioController;
+	@Autowired
+	private PersonaController personaController;
 	
-	@GetMapping("/{idDamnificada}")
-	public List<Contacto> getContactosDamnificada(@PathVariable("idDamnificada") int idDamnificada){
-		return contactoRepo.findByIdDamnificada(idDamnificada);
+	@GetMapping("/{emailDamnificada}")
+	public List<Contacto> getContactosDamnificada(@PathVariable("emailDamnificada") String emailDamnificada){
+		Usuario usuario = usuarioController.findByEmail(emailDamnificada);
+		Persona damnificada = personaController.getByIdUsuario(usuario.getIdUsuario());
+		return contactoRepo.findByIdDamnificada(damnificada.getIdPersona());
 	}
 	
 	@PostMapping
