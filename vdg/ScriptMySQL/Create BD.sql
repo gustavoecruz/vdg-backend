@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS vdg;
 
 USE vdg;
 
+DROP TABLE IF EXISTS BotonAntipanico;
 DROP VIEW IF EXISTS VistaUsuarioPersona;
 DROP TABLE IF EXISTS Contacto;
 DROP VIEW IF EXISTS VistaRestriccionDTO;
@@ -189,6 +190,18 @@ CREATE TABLE Contacto (
     PRIMARY KEY (idContacto),
     FOREIGN KEY (idDamnificada) REFERENCES Persona(idPersona)
 );
+
+
+CREATE TABLE BotonAntipanico (
+	idBotonAntipanico INT AUTO_INCREMENT,
+    latitud DECIMAL(9,6),
+    longitud DECIMAL(9,6),
+    fecha Timestamp,
+    idDamnificada INT,
+    PRIMARY KEY (idBotonAntipanico),
+    FOREIGN KEY (idDamnificada) REFERENCES Persona(idPersona)
+);
+
 
 CREATE VIEW VistaRestriccionDTO AS
 SELECT  r.idRestriccion idRestriccion,
