@@ -52,19 +52,14 @@ public class FotoIdentificacionController {
 	
 	//ESTE METODO DEVUELVE EL STRING DE LA FOTO CON EL ENCABEZADO PARA INDICAR AL FRONT
 	//QUE ES UNA IMAGEN
-	@GetMapping("/probando")
-	public FotoIdentificacion2 getProbando() {
-		List<FotoIdentificacion> fotos = fotoIdentificacionRepo.findAll();
+	@GetMapping("/getFoto/{idVictimario}")
+	public FotoIdentificacion2 getProbando(@PathVariable("idVictimario") int idVictimario) {
+		FotoIdentificacion foto = fotoIdentificacionRepo.findByIdPersona(idVictimario);
 		FotoIdentificacion2 foto2= new FotoIdentificacion2();
-		for (FotoIdentificacion foto : fotos) {
-			if(foto.getIdFoto() == 2) {
-			foto2.setFoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(foto.getFoto()));
-			foto2.setIdFoto(1);
-			foto2.setIdPersona(1);
-			return foto2;
-			}
-		}
-		return null;
+		foto2.setFoto("data:image/png;base64,"+ Base64.getEncoder().encodeToString(foto.getFoto()));
+		foto2.setIdFoto(foto.getIdFoto());
+		foto2.setIdPersona(idVictimario);
+		return foto2;
 	}
 	
 	@PostMapping
