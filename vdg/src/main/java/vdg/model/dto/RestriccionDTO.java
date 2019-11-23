@@ -8,13 +8,13 @@ public class RestriccionDTO {
 
 	private Persona damnificada;
 	private Persona victimario;
-	private Usuario usuario;
+	private Usuario administrativo;
 	private RestriccionPerimetral restriccion;
 
-	public RestriccionDTO(Persona damnificada, Persona victimario, Usuario usuario, RestriccionPerimetral restriccion) {
+	public RestriccionDTO(Persona damnificada, Persona victimario, Usuario administrativo, RestriccionPerimetral restriccion) {
 		this.damnificada = damnificada;
 		this.victimario = victimario;
-		this.usuario = usuario;
+		this.administrativo = administrativo;
 		this.restriccion = restriccion;
 	}
 
@@ -34,12 +34,12 @@ public class RestriccionDTO {
 		this.victimario = victimario;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+	public Usuario getAdministrativo() {
+		return administrativo;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setAdministrativo(Usuario administrativo) {
+		this.administrativo = administrativo;
 	}
 
 	public RestriccionPerimetral getRestriccion() {

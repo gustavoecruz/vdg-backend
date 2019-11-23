@@ -17,6 +17,9 @@ public class VistaRestriccionDTO {
 	private int idAdministrativo;
 
 	@Column
+	private String email;
+
+	@Column
 	private int idVictimario;
 
 	@Column
@@ -24,6 +27,9 @@ public class VistaRestriccionDTO {
 
 	@Column
 	private String nombreVictimario;
+
+	@Column
+	private String dniVictimario;
 
 	@Column
 	private int idDamnificada;
@@ -34,6 +40,9 @@ public class VistaRestriccionDTO {
 	@Column
 	private String nombreDamnificada;
 	
+	@Column
+	private String dniDamnificada;
+
 	public VistaRestriccionDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -110,5 +119,37 @@ public class VistaRestriccionDTO {
 		this.nombreDamnificada = nombreDamnificada;
 	}
 
+	public int getDistancia() {
+		return distancia;
+	}
+
+	public void setDistancia(int distancia) {
+		this.distancia = distancia;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDniVictimario() {
+		return dniVictimario;
+	}
+
+	public void setDniVictimario(String dniVictimario) {
+		this.dniVictimario = dniVictimario;
+	}
+
+	public String getDniDamnificada() {
+		return dniDamnificada;
+	}
+
+	public void setDniDamnificada(String dniDamnificada) {
+		this.dniDamnificada = dniDamnificada;
+	}
+	
 	
 }

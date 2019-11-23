@@ -1,5 +1,6 @@
 package vdg.controller.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ import vdg.model.domain.Persona;
 import vdg.model.domain.RolDeUsuario;
 import vdg.model.domain.Usuario;
 import vdg.model.dto.ErrorDTO;
+import vdg.model.dto.FormPersonaDTO;
 import vdg.model.validadores.ValidadoresFormPersona;
 
 @RestController
@@ -37,7 +40,7 @@ public class FormPersonaController {
 	@Autowired
 	ValidadoresFormPersona validador = new ValidadoresFormPersona();
 
-	@GetMapping
+//	@GetMapping
 	public List<Persona> listar() {
 		return personaController.listar();
 	}
@@ -100,4 +103,32 @@ public class FormPersonaController {
 		return ret;
 	}
 
+	@GetMapping
+	public List<FormPersonaDTO> getPersonasDTO(){
+		List<FormPersonaDTO> listaPersonaDTO = new ArrayList<FormPersonaDTO>();
+		
+		for(Persona persona: personaController.listar()) {
+			FormPersonaDTO personaDTO = new FormPersonaDTO();
+			Usuario usuario = new Usuario();
+			Direccion direccion = new Direccion();
+			usuario = usuarioController.findByIdUsuario(persona.getIdUsuario());
+			direccion = direccionController.findByIdDireccion(persona.getIdDireccion());
+			//SETEO
+			personaDTO.setPersona(persona);
+			personaDTO.setUsuario(usuario);
+			personaDTO.setDireccion(direccion);
+			listaPersonaDTO.add(personaDTO);
+		}
+		
+		return listaPersonaDTO;
+	}
+	
+	@PutMapping("/ModificarPersona")
+	public FormPersonaDTO modificarPersonaDTO(@RequestBody FormPersonaDTO personaDTO) {
+		usuarioController.modificarUsuario(personaDTO.getUsuario());
+		personaController.modificarPersona(personaDTO.getPersona());
+		direccionController.modificarDireccion(personaDTO.getDireccion());
+		return personaDTO;
+	}
+	
 }

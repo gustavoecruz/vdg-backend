@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -125,10 +126,13 @@ public class RestriccionDTOController {
 			victimario.setIdPersona(res.getIdVictimario());
 			victimario.setApellido(res.getApellidoVictimario());
 			victimario.setNombre(res.getNombreVictimario());
+			victimario.setDNI(res.getDniVictimario());
 			damnificada.setIdPersona(res.getIdDamnificada());
 			damnificada.setApellido(res.getApellidoDamnificada());
 			damnificada.setNombre(res.getNombreDamnificada());
+			damnificada.setDNI(res.getDniDamnificada());
 			usuario.setIdUsuario(res.getIdAdministrativo());
+			usuario.setEmail(res.getEmail());
 			restriccion.setIdRestriccion(res.getIdRestriccion());
 			restriccion.setDistancia(res.getDistanvica());
 			restriccion.setIdDamnificada(res.getIdDamnificada());
@@ -140,7 +144,6 @@ public class RestriccionDTOController {
 		
 		return ret;
 	}
-
-	
+		
 	
 }

@@ -32,6 +32,11 @@ public class LocalidadController {
 	public List<Localidad> listarLocalidadesPorProvincia(@PathVariable("id") int idProvincia){
 		return localidadRepo.findByIdProvinciaOrderByNombreAsc(idProvincia);
 	}
+	
+	@GetMapping("/Buscar/{idLocalidad}")
+	public Localidad getLocalidad(@PathVariable("idLocalidad") int idLocalidad) {
+		return localidadRepo.findByIdLocalidad(idLocalidad);
+	}
 
 	@PostMapping
 	public Localidad agregar(@RequestBody Localidad localidad){

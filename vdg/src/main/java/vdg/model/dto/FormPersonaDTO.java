@@ -26,4 +26,22 @@ public class FormPersonaDTO {
 	public String getFoto() {
 		return this.foto;
 	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
+	
 }

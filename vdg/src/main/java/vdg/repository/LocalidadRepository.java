@@ -12,4 +12,5 @@ public interface LocalidadRepository extends Repository<Localidad, Integer>{
 	public Localidad save(Localidad localidad);
 	public void delete(Localidad localidad);
 	public List<Localidad> findByIdProvinciaOrderByNombreAsc(int idProvincia);
+	public Localidad findByIdLocalidad(int idLocalidad);
 }

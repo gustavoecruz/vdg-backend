@@ -11,4 +11,5 @@ public interface DireccionRepository extends Repository<Direccion, Integer>{
 	public List<Direccion> findAll();
 	public Direccion save(Direccion direccion);
 	public void delete(Direccion direccion);
+	public Direccion findByIdDireccion(int idDireccion);
 }

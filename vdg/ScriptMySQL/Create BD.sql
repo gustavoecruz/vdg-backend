@@ -207,17 +207,22 @@ CREATE VIEW VistaRestriccionDTO AS
 SELECT  r.idRestriccion idRestriccion,
 		r.distancia distancia,
         r.idUsuario idAdministrativo,
+        u.email email,
         r.idVictimario idVictimario,
         pV.apellido apellidoVictimario,
         pV.nombre nombreVictimario,
+        pV.DNI dniVictimario,
         r.idDamnificada idDamnificada,
         pD.apellido apellidoDamnificada,
-        pD.nombre nombreDamnificada
+        pD.nombre nombreDamnificada,
+        pD.DNI dniDamnificada
 FROM    RestriccionPerimetral r
         INNER JOIN Persona pV
             ON r.idVictimario = pV.idPersona
         INNER JOIN Persona pD
-            ON r.idDamnificada = pD.idPersona;
+            ON r.idDamnificada = pD.idPersona
+        INNER JOIN Usuario u
+            ON r.idUsuario = u.idUsuario;
 
 CREATE VIEW VistaUsuarioPersona AS
 SELECT	u.idUsuario idUsuario,
