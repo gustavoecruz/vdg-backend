@@ -94,12 +94,12 @@ public class FormPersonaController {
 			return ret;
 		}
 		Usuario user = usuarioController.findByIdUsuario(idUsuario);
-		personaController.borrar(id);
-		usuarioController.borrar(idUsuario);
-		direccionController.borrar(idDireccion);
 		if (user.getRolDeUsuario().equals(RolDeUsuario.VICTIMARIO)) {
 			fotoController.eliminar(id);
 		}
+		personaController.borrar(id);
+		usuarioController.borrar(idUsuario);
+		direccionController.borrar(idDireccion);
 		return ret;
 	}
 
