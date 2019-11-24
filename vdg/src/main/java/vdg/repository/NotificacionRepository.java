@@ -14,6 +14,7 @@ public interface NotificacionRepository extends Repository<Notificacion, Integer
 	public Notificacion findByIdNotificacion(int idNotificacion);
 	public Notificacion save(Notificacion notificacion);
 	public int countByEstadoNotificacionAndIdUsuario(EstadoNotificacion estado, int idUsuario);
+	public List<Notificacion> findByEstadoNotificacionAndIdUsuario(EstadoNotificacion estado, int idUsuario);
 
 	@Query(value = "SELECT * FROM Notificacion n WHERE n.idUsuario=?1 and (n.estadoNotificacion='Vista' "
 			+ "or n.estadoNotificacion='NoVista') ORDER BY n.fecha DESC LIMIT ?2", nativeQuery = true)

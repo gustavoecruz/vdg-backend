@@ -47,6 +47,16 @@ public class NotificacionController {
 		return notificacionRepo.countByEstadoNotificacionAndIdUsuario(EstadoNotificacion.NoVista,idUsuario);
 	}
 	
+	@GetMapping("/getNoVistas/{emailUsuario}")
+	public List<Notificacion> getNoVistas(@PathVariable("emailUsuario") String emailUsuario) {
+		int idUsuario = usuarioRepo.findByEmail(emailUsuario).get(0).getIdUsuario();
+		List<Notificacion> novistas = notificacionRepo.findByEstadoNotificacionAndIdUsuario(EstadoNotificacion.NoVista,idUsuario);
+		for(Notificacion notificacion: novistas) {
+			this.setVista(notificacion.getIdNotificacion());
+		}
+		return novistas;
+	}
+	
 	@PostMapping("/archivar")
 	public Notificacion archivar(@RequestBody int idNotificacion) {
 		Notificacion notificacion = notificacionRepo.findByIdNotificacion(idNotificacion);
