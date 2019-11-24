@@ -1,6 +1,8 @@
 package vdg.controller;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.controladorRutina.UbicacionRutina;
+import vdg.model.domain.Persona;
 import vdg.model.domain.RestriccionPerimetral;
 import vdg.model.domain.Ubicacion;
+import vdg.model.domain.Usuario;
 import vdg.model.dto.UbicacionDTO;
 import vdg.model.logica.CalculadorDistancias;
 import vdg.repository.UbicacionRepository;
@@ -34,6 +38,11 @@ public class UbicacionController {
 	private UbicacionRutinaRepository ubicacionRutinaRepo;
 	@Autowired
 	private UbicacionRutinaController ubicacionRutinaController;
+	@Autowired
+	private PersonaController personaController;
+	@Autowired
+	private UsuarioController usuarioController;
+	
 
 	@GetMapping
 	public List<Ubicacion> listar() {
@@ -42,6 +51,7 @@ public class UbicacionController {
 
 	@GetMapping("/getByRestriccion/{idRestriccion}")
 	public UbicacionDTO findByRestriccion(@PathVariable("idRestriccion") int idRestriccion) {
+		System.out.println("ME PIDIO GET DE TODAS LAS RESTRICCIONES");
 		UbicacionDTO ubiDTO = new UbicacionDTO();
 		RestriccionPerimetral restriccion = restriccionController.getByIdRestriccion(idRestriccion);
 		ubiDTO.setUbicacionDamnificada(ubicacionRepo.findByIdPersona(restriccion.getIdDamnificada()));
@@ -51,10 +61,19 @@ public class UbicacionController {
 
 	@PostMapping("/postUbi/{emailUsuario}")
 	public Ubicacion agregar(@PathVariable("emailUsuario") String emailUsuario, @RequestBody Map<String, Double> posicion) {
-		//chequearUbicacionRutina(ubicacion);	
-		//return ubicacionRepo.save(ubicacion);
-		return null;
+		Usuario u = usuarioController.findByEmail(emailUsuario);
+		Persona p = personaController.getByIdUsuario(u.getIdUsuario());
+		Ubicacion ubicacion = new Ubicacion();
+		ubicacion.setLatitud(BigDecimal.valueOf(posicion.get("latitud")));
+		ubicacion.setLongitud(BigDecimal.valueOf(posicion.get("longitud")));
+		ubicacion.setIdPersona(p.getIdPersona());
+		ubicacion.setIdUbicacion(p.getIdPersona());
+		Date ahora = new Date();
+		ubicacion.setFecha(new Timestamp(ahora.getTime()));
+		chequearUbicacionRutina(ubicacion);
+		return ubicacionRepo.save(ubicacion);
 	}
+	
 
 	@PutMapping("/{idUbicacion}")
 	public Ubicacion modificar(@RequestBody Ubicacion ubicacion, @PathVariable("idUbicacion") int idUbicacion) {
