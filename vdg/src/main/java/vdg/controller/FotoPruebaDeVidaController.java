@@ -33,6 +33,8 @@ public class FotoPruebaDeVidaController {
 	public FotoPruebaDeVida2 getProbando(@PathVariable("idPruebaDeVida") int idPruebaDeVida) {
 		FotoPruebaDeVida foto = fotoPruebaDeVidaRepo.findByIdPruebaDeVida(idPruebaDeVida);
 		FotoPruebaDeVida2 foto2 = new FotoPruebaDeVida2();
+		if(foto == null)
+			return null;
 		foto2.setFoto("data:image/png;base64," + Base64.getEncoder().encodeToString(foto.getFoto()));
 		foto2.setIdFoto(foto.getIdFoto());
 		foto2.setIdPruebaDeVida(idPruebaDeVida);
