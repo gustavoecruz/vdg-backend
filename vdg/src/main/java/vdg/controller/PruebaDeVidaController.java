@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vdg.model.domain.EstadoNotificacion;
 import vdg.model.domain.EstadoPruebaDeVida;
 import vdg.model.domain.Incidencia;
+import vdg.model.domain.Notificacion;
 import vdg.model.domain.Persona;
 import vdg.model.domain.PruebaDeVida;
 import vdg.model.domain.TipoIncidencia;
 import vdg.model.domain.Usuario;
+import vdg.repository.NotificacionRepository;
 import vdg.repository.PruebaDeVidaRepository;
 
 @RestController
@@ -30,6 +33,9 @@ public class PruebaDeVidaController {
 	@Autowired
 	private PruebaDeVidaRepository pruebaDeVidaRepo;
 	
+	@Autowired
+	private NotificacionRepository notificacionRepo;
+
 	@Autowired
 	private IncidenciaController incidenciaController;
 	
@@ -59,6 +65,7 @@ public class PruebaDeVidaController {
 		Timestamp ahoraStamp = new Timestamp(ahora.getTime());
 		pruebaDeVida.setFecha(ahoraStamp);
 		pruebaDeVida.setEstado(EstadoPruebaDeVida.Pendiente);
+		generarNotificacionVictimario(pruebaDeVida.getDescripcion(), ahoraStamp, pruebaDeVida.getIdPersonaRestriccion());
 		
 		return pruebaDeVidaRepo.save(pruebaDeVida);
 	}
@@ -91,6 +98,17 @@ public class PruebaDeVidaController {
 		". Fecha de petición: " + pruebaDeVida.getFecha());
 		
 		incidenciaController.agregar(incidencia);
+	}
+	
+	private void generarNotificacionVictimario(String peticion, Timestamp fecha, int idUsuario) {
+		Notificacion notificacion = new Notificacion();
+		notificacion.setEstado(EstadoNotificacion.NoVista);
+		notificacion.setAsunto("Nueva prueba de Vida");
+		notificacion.setDescripcion(peticion);
+		notificacion.setFecha(fecha);
+		notificacion.setIdUsuario(idUsuario);
+		
+		notificacionRepo.save(notificacion);
 	}
 
 }
