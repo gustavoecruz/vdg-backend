@@ -1,5 +1,6 @@
 package vdg.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,30 @@ public class UsuarioController {
 	public Usuario findByIdUsuario(int idUsuario) {
 		List<Usuario> usuarios = usuarioRepo.findByIdUsuario(idUsuario);
 		return usuarios.isEmpty() ? null : usuarios.get(0);
+	}
+	
+	@PutMapping("/recuperarContrasena")
+	public ErrorDTO recuperarContrasena(@RequestBody Usuario usuario) {
+		ErrorDTO error = new ErrorDTO();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios = usuarioRepo.findByEmail(usuario.getEmail()); 
+		if(usuarios.size()!=0) {
+			usuario = usuarios.get(0);
+			int contrasena = (int) Math.floor(Math.random()*9999+1);
+			String mensaje = "Su contraseña es: "+contrasena +"\n" + "Podrá modificar la contraseña desde el sistema";
+			EmailGateway.enviarMail(usuario.getEmail(), mensaje, "Contraseña modificada");
+			String contrasenaEncriptada = Encriptar.sha256(""+contrasena);
+			usuario.setContrasena(contrasenaEncriptada);
+			usuarioRepo.save(usuario);
+			return error;
+
+		}
+		else{
+			error.setHayError();
+			error.addMensajeError("El email no corresponde a un usuario");
+			return error;
+		}
+		 
 	}
 	
 	@PutMapping("/modificarUsuario")
