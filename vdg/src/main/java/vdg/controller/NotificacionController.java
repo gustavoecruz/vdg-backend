@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vdg.model.domain.EstadoNotificacion;
 import vdg.model.domain.Notificacion;
+import vdg.model.domain.Usuario;
 import vdg.repository.NotificacionRepository;
 import vdg.repository.UsuarioRepository;
 
@@ -31,6 +32,13 @@ public class NotificacionController {
 		return notificacionRepo.findByIdUsuario(idUsuario);
 	}
 
+	@GetMapping("/App/{emailUsuario}")
+	public List<Notificacion> getNotificacionesApp(@PathVariable("emailUsuario") String emailUsuario) {
+		Usuario user = new Usuario();
+		user = usuarioRepo.findByEmail(emailUsuario).get(0);
+		return notificacionRepo.findByIdUsuario(user.getIdUsuario());
+	}
+	
 	@GetMapping("/getNotificaciones/{idAdm}/{cantidad}")
 	public List<Notificacion> getNotificaciones(@PathVariable("idAdm") int idAdm, @PathVariable("cantidad") int cantidad) {
 		return notificacionRepo.findVistasNoVistas(idAdm, cantidad);
