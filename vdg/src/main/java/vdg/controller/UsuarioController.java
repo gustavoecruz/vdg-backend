@@ -121,6 +121,7 @@ public class UsuarioController {
 			usuario = usuarios.get(0);
 			int contrasena = (int) Math.floor(Math.random()*9999+1);
 			String mensaje = "Su contraseña es: "+contrasena +"\n" + "Podrá modificar la contraseña desde el sistema";
+			System.out.println("------------------------------------------------ "+contrasena+" ------------------------------------");
 			EmailGateway.enviarMail(usuario.getEmail(), mensaje, "Contraseña modificada");
 			String contrasenaEncriptada = Encriptar.sha256(""+contrasena);
 			usuario.setContrasena(contrasenaEncriptada);

@@ -38,9 +38,9 @@ public class IncidenciaController {
 	private UsuarioRepository usuarioController;
 	
 
-	@GetMapping("/{idRestriccion}")
-	public List<Incidencia> listar(@PathVariable("idRestriccion") int idRestriccion) {
-		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion);
+	@GetMapping("/{idRestriccion}/{cantidad}")
+	public List<Incidencia> listar(@PathVariable("idRestriccion") int idRestriccion, @PathVariable("cantidad") int cantidad) {
+		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
 	}
 	
 	public List<Incidencia> getIncidenciasIlocalizable(int idRestriccion){

@@ -21,6 +21,7 @@ public class GeneradorContraseña {
 			sb.append(symbols[indexRandom]);
 		}
 		String password = sb.toString();
+		System.out.println("------------------------------------------------ "+password+" ------------------------------------");
 		return password;
 	}
 
