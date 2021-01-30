@@ -40,7 +40,15 @@ public class IncidenciaController {
 
 	@GetMapping("/{idRestriccion}/{cantidad}")
 	public List<Incidencia> listar(@PathVariable("idRestriccion") int idRestriccion, @PathVariable("cantidad") int cantidad) {
-		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
+		List<Incidencia> incidencias = incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
+		
+		for(Incidencia i : incidencias) {
+			String desc = i.getDescripcion().replace("Maradon, Diego Armanda", "Agresor1").replace("Villafañe, Claudia", "Victima1");
+			i.setDescripcion(desc);
+		}
+		
+//		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
+		return incidencias;
 	}
 	
 	public List<Incidencia> getIncidenciasIlocalizable(int idRestriccion){
