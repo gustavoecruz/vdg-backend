@@ -42,13 +42,10 @@ public class IncidenciaController {
 	public List<Incidencia> listar(@PathVariable("idRestriccion") int idRestriccion, @PathVariable("cantidad") int cantidad) {
 		List<Incidencia> incidencias = incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
 		
-		for(Incidencia i : incidencias) {
-			String desc = i.getDescripcion().replace("Maradon, Diego Armanda", "Agresor1").replace("Villafañe, Claudia", "Victima1");
-			i.setDescripcion(desc);
-		}
+		List<Incidencia> incidenciasModificadas = modificarIncidencias(incidencias)
 		
 //		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
-		return incidencias;
+		return incidenciasModificadas;
 	}
 	
 	public List<Incidencia> getIncidenciasIlocalizable(int idRestriccion){
@@ -82,4 +79,15 @@ public class IncidenciaController {
 		
 		return nuevaIncidencia;
 	}
+	
+	
+	public List<Incidencia> modificarIncidencias(List<Incidencia> incidencias) {
+				
+		for(Incidencia i : incidencias) {
+			String desc = i.getDescripcion().replace("Maradon, Diego Armanda", "Agresor1").replace("Villafañe, Claudia", "Victima1");
+			i.setDescripcion(desc);
+		}
+		return incidencias;
+	}
+	
 }
