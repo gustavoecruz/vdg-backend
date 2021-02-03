@@ -42,7 +42,7 @@ public class IncidenciaController {
 	public List<Incidencia> listar(@PathVariable("idRestriccion") int idRestriccion, @PathVariable("cantidad") int cantidad) {
 		List<Incidencia> incidencias = incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
 		
-		List<Incidencia> incidenciasModificadas = modificarIncidencias(incidencias)
+		List<Incidencia> incidenciasModificadas = modificarIncidencias(incidencias);
 		
 //		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
 		return incidenciasModificadas;
