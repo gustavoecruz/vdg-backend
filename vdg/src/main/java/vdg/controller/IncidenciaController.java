@@ -44,8 +44,8 @@ public class IncidenciaController {
 		
 		List<Incidencia> incidenciasModificadas = modificarIncidencias(incidencias);
 		
-		return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
-		//return incidenciasModificadas;
+		//return incidenciaRepo.findByIdRestriccionOrderByFechaDesc(idRestriccion, cantidad);
+		return incidenciasModificadas;
 	}
 	
 	public List<Incidencia> getIncidenciasIlocalizable(int idRestriccion){
